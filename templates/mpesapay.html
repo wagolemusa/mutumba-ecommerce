@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br>
+<section class="mb-4">
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 mb-4">
+		<div class="card">
+		<div class="card-body">
+<span style="color:  #00c851!important; font-weight: 600; font-size: 2em;">Pay With Mpesa</span>
+		<form method="POST"> 
+		  {% csrf_token %}
+     
+		<div class="md-form mb-5">
+		<label for="address" class="">Phone Number</label>
+		<br/>
+		{{ form.phone }}
+	</div>
+
+
+  <button class="btn btn-primary btn-lg btn-block" type="submit">Lipa Na M-pesa</button>
+	</form>
+</div>
+</div>
+</div>
+	<!--Grid column-->
+<div class="col-md-6 mb-4">
+{% include "order_snippet.html" %}
+
+</div>
+</section>
+
+
+{% endblock content %}
