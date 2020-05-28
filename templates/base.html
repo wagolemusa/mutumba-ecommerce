@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+<!-- {% load static %} -->
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -8,46 +8,15 @@
     {% endblock %}
 	  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" type="text/css" href='{% static "css/bootstrap.min.css" %}'/>
-  <!-- Material Design Bootstrap -->
-  <link rel="stylesheet" type="text/css" href='{% static "css/mdb.min.css" %}' />
-  <!-- Your custom styles (optional) -->
-  <link  rel="stylesheet" type="text/css" href='{% static "css/style.min.css" %}' />
-  <style type="text/css">
-    html,
-    body,
-    header,
-    .carousel {
-      height: 60vh;
-    }
 
-    @media (max-width: 740px) {
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
-    }
-
-    @media (min-width: 800px) and (max-width: 850px) {
-
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
-    }
-
-  </style>
+<!-- <link rel="stylesheet" href="{% static 'css/real.css' %}"> -->
+<link rel="stylesheet" href="{% static 'css/stylefront.css' %}">
 </head>
 
-{% include "navbar.html" %}
-
-<div class="mt-5 pt-4">{% if messages %}
+{% include "nav.html" %}
+<div class="">{% if messages %}
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role ="alert">
     {{ message }}
@@ -63,71 +32,53 @@
 
 {% block extra_body %}
 {% endblock %}
-  <!--Footer-->
-  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
 
-
-    <hr class="my-4">
-
-    <!-- Social icons -->
-    <div class="pb-4">
-      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
-        <i class="fab fa-facebook-f mr-3"></i>
-      </a>
-
-      <a href="https://twitter.com/MDBootstrap" target="_blank">
-        <i class="fab fa-twitter mr-3"></i>
-      </a>
-
-      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-        <i class="fab fa-youtube mr-3"></i>
-      </a>
-
-      <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-        <i class="fab fa-google-plus-g mr-3"></i>
-      </a>
-
-      <a href="https://dribbble.com/mdbootstrap" target="_blank">
-        <i class="fab fa-dribbble mr-3"></i>
-      </a>
-
-      <a href="https://pinterest.com/mdbootstrap" target="_blank">
-        <i class="fab fa-pinterest mr-3"></i>
-      </a>
-
-      <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
-        <i class="fab fa-github mr-3"></i>
-      </a>
-
-      <a href="http://codepen.io/mdbootstrap/" target="_blank">
-        <i class="fab fa-codepen mr-3"></i>
-      </a>
+<!-- Footer -->
+<section class="footer">
+  <div class="container text-center">
+    <div class="row">
+    <div class="col-md-3">
+      <h1>USeful Links</h1>
+      <p>Privacy policy</p>
+      <p>Terms of Use</p>
+      <p>Return policy</p>
+      <p>Discount Coupons</p>
     </div>
-    <!-- Social icons -->
-
-    <!--Copyright-->
-    <div class="footer-copyright py-3">
+    <div class="col-md-3">
+      <h1>Company</h1>
+      <p>About Us</p>
+      <p>Contact Us</p>
+      <p>Career</p>
+      <p>Affiliate</p>
+    </div>
+    <div class="col-md-3">
+      <h1>Company</h1>
+      <p><a href="https://www.facebook.com/mdbootstrap" target="_blank">
+        <i class="fab fa-facebook-f mr-3" style="color: #fff; font-size: 15px;"></i>
+      </a> Facebook</p>
+       <p><a href="https://twitter.com/MDBootstrap" target="_blank">
+        <i class="fab fa-twitter mr-3" style="color: #fff; font-size: 15px;"></i>
+      </a>Twitter</p>
+     
+       <p><a href="https://pinterest.com/mdbootstrap" target="_blank">
+        <i class="fab fa-pinterest mr-3" style="color: #fff; font-size: 15px;"></i>
+      </a> Pinteresr</p>
+      <p><a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+        <i class="fab fa-youtube mr-3" style="color: #fff; font-size: 15px;"></i>
+      </a>Youtube</p>
+    </div>
+  </div>
+  <hr>
+   <div class="footer-copyright py-3">
       © 2019 Copyright:
       <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
     </div>
-    <!--/.Copyright-->
+</div>
+</section>
 
-  </footer>
-  <!--/.Footer-->
 
-  <!-- SCRIPTS -->
-  <!-- JQuery -->
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- Initializations -->
-  <script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
 
-  </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

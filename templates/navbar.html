@@ -9,6 +9,12 @@
         <strong class="blue-text">MDB</strong>
       </a>
 
+ <form id="custom-search-form" class="form-search form-horizontal pull-right">
+                <div class="input-append span12">
+                    <input type="text" class="search-query mac-style" placeholder="Search">
+                    <button type="submit" class="btn"><i class="icon-search"></i></button>
+                </div>
+            </form>
       <!-- Collapse -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +37,10 @@
           <li class="nav-item">
             <a class="nav-link waves-effect" href='{% url "shops:about" %}'>About</a>
           </li>
+
         </ul>
+
+          
 
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">

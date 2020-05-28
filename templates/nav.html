@@ -1,0 +1,38 @@
+{% load cart_template_tags %}
+
+<div class="top-nav-bar">
+	<div class="search-box">
+	<i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
+	<i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
+			<img src="images/orange-logo.png" class="logo">
+		<input type="text" class="form-control">
+		<span class="input-group-text"><i class="fa fa-search"></i></span>
+	</div>
+
+	<div class="menu-bar" id="side-menu">
+		<ul>
+		<li><a href="#"><i class="fa fa-shopping-basket"></i>cart</a></li>
+		<li><a href="#">Sign Up</a></li>
+		<li><a href="#">Log In</a></li>
+	</div>
+</div>
+<script>
+	
+	function openmenu()
+	{
+		document.getElementById("side-menu").style.display="block";
+		document.getElementById("menu-btn").style.display="none";
+		document.getElementById("close-btn").style.display="block"
+
+	}
+
+		function closemenu()
+	{
+		document.getElementById("side-menu").style.display="none";
+		document.getElementById("menu-btn").style.display="block";
+		document.getElementById("close-btn").style.display="none"
+
+	}
+</script>
+
+
