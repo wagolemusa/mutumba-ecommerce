@@ -5,6 +5,22 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 # Create your models here.
 
+class Category(models.Model):
+	name = models.CharField(max_length=250)
+	slug = models.SlugField(max_length=250, unique=True)
+
+	class Meta:
+		ordering = ('name',)
+		verbose_name = 'category'
+		verbose_name_plural = 'categories'
+
+	def get_category_absolete_url(self):
+		return reverse('shops:list_category', args=[self.slug])
+
+	def __str__(self):
+		return self.name
+		
+
 CATEGORY_CHOICES = (
 	('S',  'Shirts'),
 	('SW', 'Sport weare'),
@@ -18,10 +34,11 @@ LABEL_CHOICES = (
 )
 
 class Item(models.Model):
+	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 	title = models.CharField(max_length=100)
 	price = models.FloatField()
 	discount_price = models.FloatField(blank=True, null=True)
-	category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+	# category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
 	label = models.CharField(choices=LABEL_CHOICES, max_length=1)
 	slug = models.SlugField() 
 	description = models.TextField()

@@ -27,8 +27,9 @@
           <div class="p-4">
 
             <div class="mb-3">
-              <a href="">
-                <span class="badge purple mr-1">{{ object.get_category_display }}</span>
+              <a href="{{ object.category.get_category_absolete_url }}">
+                <span class="badge purple mr-1">
+                {{ object.category }}</span>
               </a>
            <!--    <a href="">
                 <span class="badge blue mr-1">New</span>
