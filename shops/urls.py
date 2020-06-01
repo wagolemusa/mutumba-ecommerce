@@ -13,6 +13,7 @@ from .views import (
 	Mpesa,
 	AddCouponView,
 	RequestRefundView,
+	list_category,
 	
 )
 
@@ -21,6 +22,7 @@ app_name = 'shops'
 urlpatterns = [
 	path('', HomeView.as_view(), name='home'),
 	path('product/<slug>/', ItemDetailView.as_view(), name='product'),
+	path('category/<slug>/', list_category, name='list_category'),
 	path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
 	path('checkout/', CheckoutView.as_view(), name='checkout'),
 	path('about/', about, name='about'),

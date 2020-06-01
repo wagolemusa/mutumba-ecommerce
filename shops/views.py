@@ -17,7 +17,7 @@ from .models import (
 				Item, OrderItem,
 				Order, BillingAddress, 
 				Payment, Mpesapay,
-				Coupon,Refund
+				Coupon,Refund, Category
 			)
 import stripe
 import base64
@@ -42,6 +42,20 @@ def products(request):
 
 	}
 	return render(request, "products.html", context)
+
+def list_category(request, slug):
+	categories = Category.objects.all()
+	if slug:
+		category = get_object_or_404(Category, slug=slug)
+		item = Item.objects.filter(category=category)
+		
+	context = {
+		'categories': categories,
+		'category': category,
+		'item':item,
+	}
+	return render(request, "category.html", context)
+
 
 class CheckoutView(View):
 	def get(self, *args, **kwargs):
