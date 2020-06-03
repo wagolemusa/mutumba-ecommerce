@@ -1,0 +1,57 @@
+
+ <div> <!-- Padding Youc can remove or addjust accourding to the shadow of the navbar -->
+<nav class="navbar navbar-expand-lg custom-navbar navbar-light fixed-top" id="main_navbar">
+        <a class="navbar-brand logo" href="#">
+    <img src="../static/logo.jpg" alt="logo" style="width:130px; height: 60px;">
+    </a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="#" style="color: #fff; font-size: 20px; font-weight: bold;"><i class="fa fa-home"> </i>Home</a>
+    </li>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+   <form id="custom-search-form" class="form-search form-horizontal pull-right">
+    <div class="input-append span12">
+    <input type="text" class="search-query" placeholder="Search">
+        <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+            </div>
+    </form>
+    </div>
+  <ul class="navbar-nav nav-flex-icons">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'shops:order-summary' %}" class="nav-link waves-effect" style="color: #fff; font-size: 20px; font-weight: bold;">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_logout' %}" style="color: #fff; font-size: 20px; font-weight: bold;">             
+              <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+            </a>
+          </li>
+
+          {% else %}
+          
+        <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_login' %}" style="color: #fff; font-size: 20px; font-weight: bold;">             
+              <span class="clearfix d-none d-sm-inline-block"> Login </span>
+            </a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_signup' %}" style="color: #fff; font-size: 20px; font-weight: bold;">             
+              <span class="clearfix d-none d-sm-inline-block"> Signup </span>
+            </a>
+        </li>
+          {% endif %}
+        </ul>
+</div>
+ </nav>
+</div>
+

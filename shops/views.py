@@ -123,7 +123,7 @@ def about(request):
 
 class HomeView(ListView):
 	model = Item
-	paginate_by = 8
+	paginate_by = 4
 	template_name = "home.html"
 
 class Mpesa(View):
