@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-
-
-
   <!--Main layout-->
-  <main class="mt-5 pt-4">
-    <div class="container dark-grey-text mt-5">
+    <div class="container-fluid">
+    <div class="trouser">
 
-      <!--Grid row-->
+    <!--Grid row-->
       <div class="row wow fadeIn">
 
         <!--Grid column-->
@@ -26,10 +22,10 @@
           <!--Content-->
           <div class="p-4">
 
-            <div class="mb-3">
-              <a href="{{ object.category.get_category_absolete_url }}">
+            <div class="mb-3" style="font-weight: bold; font-size: 30px;">
+    <a href="{{ instance.category.get_category_absolete_url }}">
                 <span class="badge purple mr-1">
-                {{ object.category }}</span>
+                {{ instance.category }}</span>
               </a>
            <!--    <a href="">
                 <span class="badge blue mr-1">New</span>
@@ -39,20 +35,23 @@
               </a> -->
             </div>
 
-            <p class="lead">
-            {% if object.discount_price %}
+            <p class="lead"> <b>Price: </b>
+            {% if instance.discount_price %}
               <span class="mr-1">
-                <del>{{ object.price }}</del>
+                <del>{{ instance.price }}</del>
               </span>
-              <span>{{ object.discount.price }}</span>
+              <span>{{ instance.discount.price }}</span>
               {% else %}
-              <span>{{ object.price }} KSH</span>
+              <span>{{ instance.price }} KSH</span>
               {% endif %}
             </p>
+            <p><b class="lead font-weight-bold">Color:</b> {{ instance.color }}</p>
+            <p><b class="lead font-weight-bold">Type:</b> {{ instance.type_cloth }}</p>
+            <p><b class="lead font-weight-bold">Label:</b> {{ instance.label }}</p>
 
             <p class="lead font-weight-bold">Description</p>
 
-            <p>{{ object.description }}</p>
+            <p>{{ instance.description }}</p>
 
             <form class="d-flex justify-content-left">
               <!-- Default input -->
@@ -62,11 +61,11 @@
               </button>
 
             </form> -->
-              <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">Add to cart
+              <a href="{{ instance.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">Add to cart
                 <i class="fas fa-shopping-cart ml-1"></i>
               </a>
 
-              <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">Remove From Cart
+              <a href="{{ instance.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">Remove From Cart
               </a>
 
 
@@ -78,59 +77,67 @@
 
       </div>
       <!--Grid row-->
+    </form></div>
+     <br/>
 
-      <hr>
+ <!-- Shoes Collections -->
+<div class="container-fluid">
+<div class="trouser">
 
-      <!--Grid row-->
-      <div class="row d-flex justify-content-center wow fadeIn">
+<div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
 
-        <!--Grid column-->
-        <div class="col-md-6 text-center">
+  <div class="row">
+<div class="col-md-3">
 
-          <h4 class="my-4 h4">Additional information</h4>
+<h5><a href="#" style="color: #444 !important; font-weight: bold; 
+font-size: 22px;">
+Related <span style="color: #FF8800;">Designs</span>  <span></span></a></span></h5>
+<br>
+</div> 
 
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
-            voluptates,
-            quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+  <!--Indicators-->
+  <ol class="carousel-indicators">
+    <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+    <li data-target="#multi-item-example" data-slide-to="1"></li>
+    <li data-target="#multi-item-example" data-slide-to="2"></li>
+  </ol>
+  <!--/.Indicators-->
 
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
+
+    <!--First slide-->
+    <div class="carousel-item active">
+  <div class="row">
+    {% for category in show %}
+
+      <div class="col-md-2">
+        <div class="card mb-2">
+       <div class="view overlay">
+          <div class="image">
+          <img src="{{ category.image.url }}" class="card-img-top" alt=""> 
+            <a href="{{ category.get_absolete_url }}">
+          
+            <div class="mask rgba-white-slight"></div>
+          </a>
+          </div>
+          <h6 style="padding-left: 10px; padding-top: 5px; font-weight: bold;">Ksh {{ category.price }}
+          </div>
         </div>
-        <!--Grid column-->
-
       </div>
-      <!--Grid row-->
-
-      <!--Grid row-->
-      <div class="row wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-12 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-      </div>
-      <!--Grid row-->
+      {% endfor %}
 
     </div>
-  </main>
-  <!--Main layout-->
+    <!--/.Third slide-->
+  </div>
+  <!--/.Slides-->
+</h6>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
   
  {% endblock content %}

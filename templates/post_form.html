@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{{ form.media }}
+{% block content %}
+
+<br/><br/><br/>
+<div class="container">
+<div class="col-sm-6 col-sm-offset-6">
+<h1>Create Items</h1>
+<form method="POST" class="post_form" action="" enctype="multipart/form-data">{% csrf_token %}
+{{ form.as_p }}
+ 
+{{ formset.as_table }}
+
+<input type="submit" class="btn btn-default" value="Create Post">
+</form>
+</div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="row wow fadeIn"> 
+  <!--Fourth column-->
+  {% for item in newproduct %}
+<div class="col-lg-2 col-md-6 mb-4">
+<div class="card">
+ <div class="view overlay">
+  <div class="image">
+  <img src="{{ item.image.url }}" class="card-img-top" alt=""> 
+    <a href="{{ item.get_absolete_url }}">
+  
+    <div class="mask rgba-white-slight"></div>
+  </a>
+  </div>
+  </div>
+  <div class="card-body text-center">
+  <!--Category & Title-->
+  <a href="{{ item.category.get_category_absolete_url }}" class="grey-text">
+  </a>
+<h5>
+<strong>
+  <a href="{{ item.get_absolete_url }}" class="dark-grey-text">{{ item.title }}</a> &nbsp;&nbsp;&nbsp;
+
+  <a href="{{ item.category.get_category_absolete_url }}" class="badge badge-pill {{ item.get_label_display }}-color">{{ item.category }}</a>
+</strong></h5>
+ <h5 class="font-weight-bold blue-text" style="font-size: 18px; font-weight: bold;">
+   
+  {% if item.discount_price %}
+  {{ item.discount_price }}
+  {% else %}
+
+    Ksh {{ item.price }}
+  {% endif %} 
+</h5>
+</div>
+<!--Card content-->
+
+  </div>
+  <!--Card-->
+</div>
+<!--Fourth column-->
+{% endfor %}
+</div>
+<!--Grid row-->
+
+</section>
+<!--Section: Products v.3-->
+    </div>
+</div>
+<section class="padd z-depth-1" style="background-color: #fff; padding: 1em;">
+<div class="container">
+  <div class="row">
+   <div class="col">
+  <h1 class="card-title" style="color: #4B515D
+; font-size: 2em;"> Find More Properties</h1>
+  </div>
+
+<div class="col-12 col-md-auto">
+  <div class="pagination" style="font-size: 1.5em; font-weight: 500; color: #4B515D;">
+    <span class="step-links">
+        {% if newproduct.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ newproduct.previous_page_number }} {% if request.GET.q %} &q={{ request.GET.q }} {% endif %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ newproduct.number }} of {{ newproduct.paginator.num_pages }}.
+        </span>
+
+        {% if newproduct.has_next %}
+            <a href="?page={{ newproduct.next_page_number }}">next</a>
+            <a href="?page={{ newproduct.paginator.num_pages }} {% if request.GET.q %} &q={{ request.GET.q }} {% endif %}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+{% endblock content %}

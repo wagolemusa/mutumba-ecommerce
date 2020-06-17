@@ -3,21 +3,33 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, Http404
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator 
+from django.db.models import Q
+from django.forms import modelformset_factory
+from django.http import HttpResponse, HttpResponseRedirect
+
+
 # Create your views here.
 # from django.contrib.staticfiles
-from .forms import CheckoutForm, CouponForm, RefundForm
+from .forms import (
+						CheckoutForm, CouponForm, 
+						RefundForm, PostForms,
+						ImageForms
+					)
 from .mpesa import Mpesaform
 from .models import (
 				Item, OrderItem,
 				Order, BillingAddress, 
 				Payment, Mpesapay,
-				Coupon,Refund, Category
+				Coupon,Refund, Category,
+				Images
+
 			)
 import stripe
 import base64
@@ -31,17 +43,64 @@ import string
 
 stripe.api_key = "pk_test_B471oTONAVuayztFhrOFhxqD00vmj5u5c9"
 
+def post_create(request):
+	"""
+	Methods creates the Posts
+	"""
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
+	ImageFormSet = modelformset_factory(Images, form=ImageForms, extra=3)
+	form  = PostForms(request.POST or None, request.FILES or None)
+	formset = ImageFormSet(request.POST or None, request.FILES or None,
+													queryset=Images.objects.none())
+	if form.is_valid() and formset.is_valid():
+		instance = form.save(commit=False)
+		instance.user = request.user
+		instance.save()
+		# message success
+		for fx in formset.cleaned_data:
+			image = fx['image']
+			photo = Images(item=instance, image=image)
+			photo.save()
+		messages.success(request, "Successfully Created")
+		return HttpResponseRedirect(instance.get_absolete_url())
+	else:
+		messages.error(request, "Not Successfully Created")
+		form = PostForms()
+	context = {
+		"form": form,
+		"formset": formset,
+	}
+	return render(request, "post_form.html", context)
 
 def create_ref_code():
 	return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 
-def products(request):
+
+def products(request, slug):
+
+	instance = get_object_or_404(Item, slug=slug)
+	querySet_list = Item.objects.all()
+
+	# categories = Category.objects.all()
+	category = get_object_or_404(Category, slug=slug)
+	show = Item.objects.filter(category=category)
+
 	context = {
-
-		'items': Item.objects.all()
-
+		'items': Item.objects.all(),
+		# "title": instance.title,
+		# "item": item,
+		"instance":instance,
+		"querySet_list": querySet_list,
+		"show": show,
 	}
-	return render(request, "products.html", context)
+	# context = {
+
+	# 	'items': Item.objects.all()
+
+	# }
+	return render(request, "product.html", context)
+
 
 def list_category(request, slug):
 	categories = Category.objects.all()
@@ -94,7 +153,8 @@ class CheckoutView(View):
 					user=self.request.user,
 					street_address=street_address,
 					apartment_address=apartment_address,
-					country=country,
+					phone=phone,
+					county=county,
 					zip=zip
 				)
 				billing_address.save()
@@ -103,7 +163,7 @@ class CheckoutView(View):
 				# TODO: add redirect to the selected payment option
 
 				if payment_option == 'S':
-					return redirect('shops:payment', payment_option='stripe')
+					return redirect('shops:payment', payment_option='mpesa')
 				elif payment_option == 'M':
 					return redirect('shops:mpesapay', payment_option='mpesa')
 				else:
@@ -118,13 +178,82 @@ class PaymentView(View):
 
 		return render(self.request, "payment.html")
 
+
 def about(request):
 	return render(request, "about.html")
 
-class HomeView(ListView):
-	model = Item
-	paginate_by = 4
-	template_name = "home.html"
+def home(request):
+	today = timezone.now().date()
+
+	object_list = Item.objects.all().order_by("-timestamp")
+	query = request.GET.get("q")
+	if query:
+		object_list = object_list.filter(
+			Q(title__icontains=query) | 
+			Q(description__icontains=query)|
+			Q(price__icontains=query)|
+			Q(slug__icontains=query)
+			).distinct()
+	paginator = Paginator(object_list, 6)
+	page = request.GET.get('page')
+	querySet = paginator.get_page(page)
+
+	# # Trouser 
+	# w = Category.objects.get(name = 'Trouser')
+	# cat = Item.objects.filter(category=w).order_by('-title')[:6]
+	
+	# # get link Trouser categories
+	# get_link = Category.objects.get(name = 'Trouser')
+	# link = Item.objects.filter(category=get_link)[:1]
+
+	# # Shoes Collections
+	# shoes = Category.objects.get(name = 'Shoes')
+	# shoes_cat = Item.objects.filter(category=shoes).order_by('-title')[:6]
+	
+	# # get link shoes categories
+	# get_link_shoes = Category.objects.get(name = 'Shoes')
+	# linkshoes = Item.objects.filter(category=get_link_shoes)[:1]
+
+	# # Tops Collections
+	# tops = Category.objects.get(name = 'Tops')
+	# tops_cat = Item.objects.filter(category=tops).order_by('-title')[:6]
+
+
+	# # Get link tops cotegories
+	# get_link_tops = Category.objects.get(name = 'Tops')
+	# tops_cat_link = Item.objects.filter(category=get_link_tops)[:1]
+
+	context = {
+		'object_list': querySet,
+		# 'cat':cat,
+		# 'shoes_cat':shoes_cat,
+		# 'tops_cat': tops_cat,
+		# 'link': link,
+		# 'linkshoes':linkshoes,
+		# 'tops_cat_link':tops_cat_link,
+		# 'today':today
+		}
+	return render(request, "home.html", context)
+
+# All New Products
+def Newproduct(request):
+	object_list = Item.objects.all().order_by("-timestamp")
+	query = request.GET.get("q")
+	if query:
+		object_list = object_list.filter(
+			Q(title__icontains=query) | 
+			Q(description__icontains=query)|
+			Q(price__icontains=query)|
+			Q(slug__icontains=query)
+			).distinct()
+	paginator = Paginator(object_list, 12)
+	page = request.GET.get('page')
+	querySet = paginator.get_page(page)
+
+	context = {
+		'newproduct': querySet
+	}
+	return render(request, "new.html", context)
 
 class Mpesa(View):
 	def get(self, *args, **kwargs):
@@ -456,3 +585,4 @@ class RequestRefundView(View):
 			except ObjectDoesNotExist:
 				messages.info(self.request, "This order does not exit.")
 				return redirect("shops:request-refund")
+

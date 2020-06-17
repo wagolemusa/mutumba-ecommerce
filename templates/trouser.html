@@ -1,0 +1,13 @@
+ <section>
+  
+  <div class="container-fluid">
+
+    {% for category in cat %}
+
+     <h1> {{ category.title }}</h1>
+     		<h6>{{ category.price }}</h6>
+
+    {% endfor %}
+
+  </div>
+</section>

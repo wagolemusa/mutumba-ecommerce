@@ -1,10 +1,50 @@
 {% extends "base.html" %}
+
+
 {% block content %}
 
-<h1>{{ category.name }}</h1>
-
+<div class="category">
+	<h1 class="text-center">
+		<span>{{ category.name }}</span> Categories
+	</h1>
+</div>
+<div class="container-fluid">
+  <div class="row wow fadeIn"> 
 	{% for items in item %}
-		<h2><a href="{{ items.get_absolete_url }}">{{ items.title }}
+<div class="col-lg-3 col-md-6 mb-4">
+<div class="card">
+ <div class="view overlay">
+  <div class="image">
+  <img src="{{ items.image.url }}" class="card-img-top" alt=""> 
+    <a href="{{ items.get_absolete_url }}">
+  
+    <div class="mask rgba-white-slight"></div>
+  </a>
+    <div class="card-body text-center">
 
-	{% endfor %}
+<strong>
+
+  <a href="{{ items.get_absolete_url }}" class="dark-grey-text" style="font-weight: bold; font-size: 20px;">{{ items.title }}</a> &nbsp;&nbsp;&nbsp;
+<a href="{{ items.category.get_category_absolete_url }}" class="badge badge-pill {{ items.get_label_display }}-color">{{ items.category }}</a>
+</strong></h5>
+ <h5 class="font-weight-bold blue-text">
+   <strong>
+  {% if items.discount_price %}
+  {{ items.discount_price }}
+  {% else %}
+
+    Ksh {{ items.price }}
+  {% endif %} </strong>
+</h5>
+</div>
+  </div>
+  </div>
+  </div>
+	</div>
+		{% endfor %}
+
+	</div>
+</div>
+
+
 {% endblock content %} 
