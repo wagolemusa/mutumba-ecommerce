@@ -1,0 +1,80 @@
+{% load cart_template_tags %}
+
+      <nav class="navbar navbar-expand-lg custom-navbar navbar-light fixed-top" id="main_navbar">
+        <a class="navbar-brand logo" href="#">
+        <img src="../static/cf.png" alt="logo" style="width:70px; height: 60px;">
+          <!-- <img src="#" alt="logo" style="width:130px;"> -->
+        </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href='{% url "shops:home" %}' style="color: #fff; font-size: 20px; font-weight: bold;"><i class="fa fa-home"></i>Home</a>
+                    </li>
+                      <li class="nav-item">
+                      <a class="nav-link" href='{% url "shops:new" %}' style="color: #fff; font-size: 20px; font-weight: bold;">
+                        <i class="fa fa-volume-control-phone">
+                        </i>
+                        New Products
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#" style="color: #fff; font-size: 20px; font-weight: bold;">
+                        <i class="fa fa-volume-control-phone">
+                        </i>
+                        Contact
+                      </a>
+                    </li>
+
+
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                  <form method="get" action="./search.php" class="form-horizontal" enctype="multipart/form-data">
+                      <input class="form-control mr-sm-2" name="inputs" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" name="search" type="submit">Search</button>
+                  </form>
+              </div>
+
+            <ul class="navbar-nav ">
+            {% if request.user.is_authenticated %}
+
+           
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'shops:order-summary' %}" style="color: #fff; font-size: 20px; font-weight: bold;">
+                <i class="fa fa-shopping-basket">
+
+                </i>
+                Cart <span class="dot text-center" style="background-color: #000; border-radius: 20px; padding-right: 10px; padding-left: 10px;">{{ request.user|cart_item_count }}</span>
+              </a>
+            </li>
+             <li class="nav-item dropdown form-inline">
+                    <a class="nav-link" href="#">
+                        <a class='nav-link fas fa-sign-out-alt' href="{% url 'account_logout' %}" style="color: #fff; font-size: 20px; font-weight: bold;"> Logout</a>
+                    </a>
+            </li>
+
+            {% else %}
+
+              <li class="nav-item dropdown form-inline">
+                  <a class="nav-link" href="#">
+                  <a class='nav-link fas fa-sign-in-alt' href='
+                  {% url 'account_login' %}' style="color: #fff; font-size: 20px; font-weight: bold;"> Login</a>
+                  </a>
+            </li>
+              <li class="nav-item dropdown form-inline">
+                    <a class="nav-link" href="#">
+                        <a class='nav-link fa fa-user' href='{% url 'account_signup' %}' style="color: #fff; font-size: 20px; font-weight: bold;"> Signup</a>
+                    </a>
+            </li>
+            {% endif %}
+          </ul>
+              
+          </div>
+      </nav>
+
+    
+    

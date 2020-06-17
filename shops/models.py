@@ -5,6 +5,9 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 # Create your models here.
 
+def upload_location(instance, filename):
+	return "%s/%s" %(instance.id, filename)
+
 class Category(models.Model):
 	name = models.CharField(max_length=250)
 	slug = models.SlugField(max_length=250, unique=True)
@@ -39,11 +42,21 @@ class Item(models.Model):
 	price = models.FloatField()
 	discount_price = models.FloatField(blank=True, null=True)
 	# category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+	size = models.CharField(max_length=100)
+	color = models.CharField(max_length=100)
+	type_cloth  = models.CharField(max_length=100)
 	label = models.CharField(choices=LABEL_CHOICES, max_length=1)
 	slug = models.SlugField() 
+	image = models.ImageField(upload_to=upload_location, 
+					null=True, 
+					blank=True,
+					width_field="width_field",
+					height_field="height_field")
+	height_field = models.IntegerField(default=0)
+	width_field  = models.IntegerField(default=0)
 	description = models.TextField()
-	# image = models.ImageField(blank=True, null=True)
-	image = models.ImageField()
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
 
 	def __str__(self):
 		return self.title
@@ -140,8 +153,11 @@ class BillingAddress(models.Model):
 														on_delete=models.CASCADE)
 	street_address = models.CharField(max_length=100)
 	apartment_address = models.CharField(max_length=100)
-	country = CountryField(multiple=False)
+	county = models.CharField(max_length=100)
+	phone = models.IntegerField()
 	zip = models.CharField(max_length=100)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
 
 	def __str__(self):
 		return self.user.username
@@ -183,3 +199,13 @@ class Refund(models.Model):
 
 	def __str__(self):
 		return "%s" %(self.pk)
+
+# Image 
+class Images(models.Model):
+	item = models.ForeignKey(Item, on_delete=models.CASCADE,)
+	image = models.ImageField(upload_to="upload_location",
+		null=True,
+		blank=True)
+
+	def __str__(self):
+		return self.post.title + "Image"

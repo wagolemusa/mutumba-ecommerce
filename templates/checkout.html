@@ -4,9 +4,13 @@
 {% block content %}
 
 <!--Main layout-->
-<main class="pt-4">
-  <div class="container wow fadeIn">
-   <h2 class="my-5 h2 text-center">Checkout form</h2>
+<main class="category">
+<div class="container wow fadeIn">
+  <p style="padding-top: 20px;">Please enter a shipping address for this order. Please also indicate whether your billing address is the same as the shipping address entered. When finished, click the "Continue" button.  Or, if you're sending items to more than one address, click the "Add another address" button to enter additional addresses.</p>
+
+  
+    <h3><b>Enter a new shipping address.</b></h3>
+    <h6>When finished, click the "Continue" button.</h6> 
     <div class="row">
       <div class="col-md-8 mb-4">
        <div class="card">
@@ -25,19 +29,21 @@
   {{ form.apartment_address }}
   <label for="address-2" class="">Address 2 (optional)</label>
   </div>
+  <div class="md-form mb-5">
+   <!-- <input type="text" id="address-2" class="form-control"> -->
+  {{ form.phone }}
+  <label for="phone" class="">Phone Number</label>
+  </div>
   <div class="row">
 
    <!--Grid column-->
    <div class="col-lg-4 col-md-12 mb-4">
-      <label for="country">Country</label>
+      <label for="country">County</label>
       <!--    <select class="custom-select d-block w-100" id="country" required>
        <option value="">Choose...</option>
        <option>United States</option>
        </select> -->
-      {{ form.country }}
-    <div class="invalid-feedback">
-      Please select a valid country.
-    </div>
+      {{ form.county }}
 
     </div>
     <!--Grid column-->
