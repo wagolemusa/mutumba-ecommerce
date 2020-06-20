@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="service">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				
+				<h1 class="heading align-start ember color-squid-ink font-size-34 font-weight-blod">
+				<br>
+				<br>
+				Mainashop.com shop worldwide</h1>
+			</div>
+
+			<div class="col-md-6">
+			<img src="../static/sa2.png" alt="">
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<section class="service2">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<img src="../static/book1.svg" alt="" style="width: 300px;">
+				<br><br>
+				<p>We deliver to you</p>
+				<h2 style="font-size: 30px; font-weight: 600;">Kenyawide shipping</h2>
+				<h4>We ship to over 40 counties and regions,
+				right to your doorstep</h4>
+			</div>
+
+
+			<div class="col-md-6">
+			<div class="logo2">
+				<div class="row">
+					<div class="col-md-2">
+						<img src="../static/op.png" alt="">
+					</div>
+					<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">
+						Shop in 40 counties</h2>
+						<h6>Freedom to choose your preferred street in your county</h6>
+					</div>
+					</div>
+					<br>
+					<br>
+				<div class="row">
+					<div class="col-md-2">
+						<img src="../static/op1.png" alt="">
+					</div>
+					<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">Products that ship to you</h2>
+						<h6>Find top products that ship to you</h6>
+					</div>
+			</div>
+					<br>
+					<br>
+					<br>
+				<div class="row">
+					<div class="col-md-2">
+						<img src="../static/opp.png" alt="">
+					</div>
+					<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">Transparent costs</h2>
+						<h6>We estimate shipping and custom fees on your behalf</h6>
+					</div>
+					</div>
+			
+
+					<br>
+					<br>
+				
+					<div class="row">
+					<div class="col-md-2">
+						<img src="../static/op12.png" alt="">
+					</div>
+					<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">Offers and Discounts</h2>
+						<h6>Shop on offers and with discount price</h6>
+					</div>
+				</div>
+
+					<br>
+					<br>
+					
+					<div class="row">
+					<div class="col-md-2">
+						<img src="../static/xc.png" alt="">
+					</div>
+					<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">Wholesale With Recopn</h2>
+						<h6>Get a recopn and shop wholesale clothes with good price.</h6>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="service3">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+				<div class="col-md-2">
+					<img src="../static/pt.png" alt="">
+				</div>
+				<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">24/7 customer service</h2>
+						<h6>You can email, chat, or call us any time.</h6>
+					</div>
+				</div>
+						<br>
+			<br>
+			<br>
+			<br>
+		<div class="row">
+				<div class="col-md-2">
+					<img src="../static/pty.png" alt="">
+				</div>
+				<div class="col">
+						<h2 style="font-size: 25px; font-weight: 600;">Track your orders</h2>
+						<h6>Get updates on package delivery.</h6>
+					</div>
+				</div>
+</div>
+			<div class="col-md-6">
+				<img src="../static/booke5y.png" alt="" style="width: 300px;">
+				<br>
+				<br>
+				<h3 style="font-size: 20px; font-weight: 600;">SHOP WITH CONFIDENCE</h3>
+				<h2 style="font-size: 25px; font-weight: 400;">Safe and secure payments With Safaricom</h2>
+				<p>We protect your personal payment information</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div class="container-fluid" style="background-color: #fff; padding: 4em;">
+
+<h5><a href='{% url "shops:home" %}' style="color: #4B515D !important; font-weight: bold; 
+font-size: 22px;">
+<span style="color: #FF8800;">All New Ralated Products</span>| <span>Shop more --></span></a></span></h5>
+
+
+<br/>
+  <div class="row wow fadeIn"> 
+  <!--Fourth column-->
+  {% for item in object_list %}
+<div class="col-lg-2 col-md-6 mb-4">
+<div class="card">
+ <div class="view overlay">
+  <div class="image">
+  <img src="{{ item.image.url }}" class="card-img-top" alt=""> 
+    <a href="{{ item.get_absolete_url }}">
+  
+    <div class="mask rgba-white-slight"></div>
+  </a>
+  </div>
+  </div>
+  <div class="card-body text-center">
+  <!--Category & Title-->
+  <a href="{{ item.category.get_category_absolete_url }}" class="grey-text">
+  </a>
+<h5>
+<strong>
+  <a href="{{ item.get_absolete_url }}" class="dark-grey-text">{{ item.title }}</a> &nbsp;&nbsp;&nbsp;
+
+  <a href="{{ item.category.get_category_absolete_url }}" class="badge badge-pill {{ item.get_label_display }}-color">{{ item.category }}</a>
+</strong></h5>
+ <h5 class="font-weight-bold blue-text" style="font-size: 18px; font-weight: bold;">
+   
+  {% if item.discount_price %}
+  {{ item.discount_price }}
+  {% else %}
+
+    Ksh {{ item.price }}
+  {% endif %} 
+</h5>
+</div>
+<!--Card content-->
+
+  </div>
+  <!--Card-->
+</div>
+<!--Fourth column-->
+{% endfor %}
+</div>
+<!--Grid row-->
+
+</section>
+<!--Section: Products v.3-->
+    </div>
+</div>
+
+
+
+{% endblock content%}

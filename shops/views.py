@@ -78,12 +78,11 @@ def create_ref_code():
 
 
 def products(request, slug):
-
 	instance = get_object_or_404(Item, slug=slug)
 	querySet_list = Item.objects.all()
-
-	# categories = Category.objects.all()
+	categories = Category.objects.all()
 	category = get_object_or_404(Category, slug=slug)
+	# category = Category.objects.get(name = slug)
 	show = Item.objects.filter(category=category)
 
 	context = {
@@ -92,7 +91,7 @@ def products(request, slug):
 		# "item": item,
 		"instance":instance,
 		"querySet_list": querySet_list,
-		"show": show,
+		# "show": show,
 	}
 	# context = {
 
@@ -181,6 +180,26 @@ class PaymentView(View):
 
 def about(request):
 	return render(request, "about.html")
+
+def services(request):
+	object_list = Item.objects.all().order_by("-timestamp")
+	query = request.GET.get("q")
+	if query:
+		object_list = object_list.filter(
+			Q(title__icontains=query) | 
+			Q(description__icontains=query)|
+			Q(price__icontains=query)|
+			Q(slug__icontains=query)
+			).distinct()
+	paginator = Paginator(object_list, 6)
+	page = request.GET.get('page')
+	querySet = paginator.get_page(page)
+
+	context = {
+		"object_list":querySet,
+	}
+
+	return render (request, "service.html", context)
 
 def home(request):
 	today = timezone.now().date()

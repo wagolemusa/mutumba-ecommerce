@@ -103,3 +103,49 @@ body{
 
 }
 */
+
+/******** Services***********/
+
+.service{
+    padding: 3em;
+}
+
+.service h1{
+    padding-left: 3em;
+    color: #000;
+/*    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: -50px;
+*/
+}
+
+.service2{
+    background-color: #fff;
+    padding-top: 8em;
+    padding-bottom: 3em;
+    font-family: AmazonEmber, Helvetica, Arial, sans-serif;
+}
+
+.service2 img{
+    width: 400px;
+   
+
+}
+.service2 p{
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}
+.logo2 img{
+    width: 53px;
+}
+
+.logo2 h2{
+    font-size: 18px;
+}
+
+
+.service3 {
+    padding-top: 8em;
+    padding-bottom: 5em;
+}
