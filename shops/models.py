@@ -10,7 +10,7 @@ def upload_location(instance, filename):
 
 class Category(models.Model):
 	name = models.CharField(max_length=250)
-	slug = models.SlugField(max_length=250, unique=True)
+	slug = models.SlugField(max_length=250)
 
 	class Meta:
 		ordering = ('name',)
@@ -209,3 +209,17 @@ class Images(models.Model):
 
 	def __str__(self):
 		return self.post.title + "Image"
+
+class Contact(models.Model):
+	full_name = models.CharField(max_length=120)
+	phone  = models.IntegerField()
+	email = models.CharField(max_length=150)
+	subject = models.CharField(max_length=200)
+	message = models.TextField()
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+	def __unicode__(self):
+		return self.full_name
+
+	def __str__(self):
+		return self.full_name

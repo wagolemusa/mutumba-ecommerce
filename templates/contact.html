@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{{ form.media }}
+
+{% block content %}
+<section style="padding: 3em; background-color: #fff";>
+	<div class="container">
+		<div class="text1">
+		<h4>Contact Us</h4>
+	 </div>
+	</div>
+
+<hr>
+<div class="container">
+<!-- Section: Contact v.1 -->
+<section class="my-5">
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-lg-5 mb-lg-0 mb-4">
+
+      <!-- Form with header -->
+      <div class="card">
+        <form method="POST" class="card-body">
+					{% csrf_token %}          
+					<!-- Header -->
+          <div class="form-header">
+            <h3 class="mt-2"><i class="fas fa-envelope"></i> Write to us:</h3>
+          </div>
+          <p class="dark-grey-text">We'll write rarely, but only the best content.</p>
+          <!-- Body -->
+          <div class="md-form">
+            <i class="fas fa-user prefix grey-text"></i>
+            <!-- <input type="text" id="form-name" class="form-control"> -->
+            {{ form.full_name }}
+            <label for="form-name">Your name</label>
+          </div>
+           <div class="md-form">
+            <i class="fas fa-mobile-alt prefix grey-text"></i>
+            <!-- <input type="text" id="phone-number" class="form-control"> -->
+            {{ form.phone }}
+            <label for="form-name">Your phone</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <!-- <input type="text" id="form-email" class="form-control"> -->
+            {{ form.email }}
+            <label for="form-email">Your email</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-tag prefix grey-text"></i>
+            <!-- <input type="text" id="form-Subject" class="form-control"> -->
+            {{ form.subject }}
+            <label for="form-Subject">Subject</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-pencil-alt prefix grey-text"></i>
+            <!-- <textarea id="form-text" class="form-control md-textarea" rows="3"></textarea> -->
+            {{ form.message }}
+            <label for="form-text">Send message</label>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-light-blue" type="submit">Send Message</button>
+          </div>
+          </form>
+      </div>
+      <!-- Form with header -->
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-7">
+  <div class="row text-center">
+        <div class="col-md-4">
+          <a class="btn-floating">
+            <i class="fas fa-map-marker-alt"></i>
+          </a>
+          <p>P.O. Box 577 - 40100, Opp</p>
+          <p class="mb-md-0">Kisumu K-city</p>
+        </div>
+        <div class="col-md-4">
+          <a class="btn-floating">
+            <i class="fas fa-phone"></i>
+          </a>
+          <p>+254 725 696 042</p>
+          <p class="mb-md-0">Mon - sat, 8:00-6:00</p>
+        </div>
+        <div class="col-md-4">
+          <a class="btn-floating">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <p>info@mainboutique.co.ke</p>
+          <p class="mb-0">mainboutique.com</p>
+        </div>
+      </div>
+      <br><br>
+      <!--Google map-->
+      <div id="map-container-section" class="z-depth-1-half map-container-section mb-4" style="height: 590px">
+
+  <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31918.52217744873!2d34.70961302351804!3d-0.07082394667656002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x182aa7ad9d181a39%3A0x8b361a1b1318e229!2sRiat%20Villas%20(Coromandele)%2C%20Kisumu!3m2!1d-0.053825899999999996!2d34.739545!4m5!1s0x182aa5ac750c293d%3A0x229e6bdbae2184b6!2sKisumu%20Airport%2C%20Kisumu!3m2!1d-0.08829419999999999!2d34.7257446!5e0!3m2!1sen!2ske!4v1590508518043!5m2!1sen!2ske" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <!-- <iframe src="https://maps.google.com/maps?q=Manhatan&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" -->
+          <!-- style="border:0" allowfullscreen></iframe> -->
+      </div>
+      <!-- Buttons-->
+    </div>
+    <!-- Grid column -->
+  </div>
+  <!-- Grid row -->
+</div>
+<!-- Section: Contact v.1 -->
+<div class="container">
+    <div class="row">
+      <div class="col-md-9">
+      <h3>ASSURING YOU OF OUR BEST CUSTOMER CARE ALWAYS</h3>
+      </div>
+
+      <div class="col-md-3">
+      <a href='{% url "shops:home" %}'  class="btn btn-warning btn-rounded pull-right">Go shop</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
