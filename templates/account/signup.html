@@ -10,9 +10,10 @@
 
 <main>
   <div class="container">
-    <div class="text-center mb-4">
       <div class="row wow fadeIn">
-        <div class="col-12">
+       <div class="register" style="float: 56px;">
+       <div class="card">
+       	<div class="card-body">
 
 					<h1>{% trans "Sign Up" %}</h1>
 
@@ -24,12 +25,14 @@
 					  {% if redirect_field_value %}
 					  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 					  {% endif %}
-					  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+					  <button type="submit" class="btn btn-primary">{% trans "Sign Up" %} &raquo;</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
+
 </main>
 
 {% endblock %}

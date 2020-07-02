@@ -1,7 +1,7 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-from .models import Item, Images
+from .models import Item, Images, Contact
 
 PAYMENT_CHOICES = (
 	('S', 'Stripe'),
@@ -99,3 +99,32 @@ class ImageForms(forms.ModelForm):
 	class Meta:
 		model = Images
 		fields = ('image',)
+
+
+class CantactForms(forms.ModelForm):
+	full_name = forms.CharField(widget=forms.TextInput(attrs={
+		'class': 'form-control'
+		}))
+	phone = forms.CharField(widget=forms.NumberInput(attrs={
+		'class': 'form-control'
+	}))
+
+	email = forms.CharField(widget=forms.TextInput(attrs={
+		'class': 'form-control'
+		}))
+	subject = forms.CharField(widget=forms.TextInput(attrs={
+		'class': 'form-control'
+		}))
+	message = forms.CharField(widget=forms.Textarea(attrs={
+		'class': 'form-control'
+		}))
+
+	class Meta:
+		model = Contact
+		fields = [
+			"full_name",
+			"phone",
+			"email",
+			"subject",
+			"message",
+		]

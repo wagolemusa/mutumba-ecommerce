@@ -33,7 +33,7 @@
 <div class="allclass">
 {% for links in link %}
 <h5><a href="#" style="color: #4B515D !important; font-weight: bold; 
-font-size: 22px;">
+font-size: 18px;">
 <span style="color: #FF8800;">All New Ralated Products</span>| <span>See all -->{{ cat.price }}</span></a></span></h5>
 {% endfor %}
 
@@ -58,7 +58,7 @@ font-size: 22px;">
   </a>
 <h5>
 <strong>
-  <a href="{{ item.get_absolete_url }}" class="dark-grey-text">{{ item.title }}</a> &nbsp;&nbsp;&nbsp;
+  <a href="{{ item.get_absolete_url }}" class="dark-grey-text" style="font-size: 16px;">{{ item.title }}</a> &nbsp;&nbsp;&nbsp;
 
   <a href="{{ item.category.get_category_absolete_url }}" class="badge badge-pill {{ item.get_label_display }}-color">{{ item.category }}</a>
 </strong></h5>
@@ -101,7 +101,7 @@ font-size: 22px;">
 <div class="col-md-3">
 {% for links in link %}
 <h5><a href="{{ links.category.get_category_absolete_url }}" style="color: #4B515D !important; font-weight: bold; 
-font-size: 22px;">
+font-size: 18px;">
 Best <span style="color: #FF8800;">Trousers</span>| <span>See all -->{{ cat.price }}</span></a></span></h5>
 {% endfor %}
 </div>
@@ -160,7 +160,7 @@ Best <span style="color: #FF8800;">Trousers</span>| <span>See all -->{{ cat.pric
 <div class="col-md-3">
 {% for links in linkshoes %}
 <h5><a href="{{ links.category.get_category_absolete_url }}" style="color: #444 !important; font-weight: bold; 
-font-size: 22px;">
+font-size: 18px;">
 Best <span style="color: #FF8800;">Shoes</span> | <span>See all --></span></a></span></h5>
 {% endfor %}
 </div>
@@ -220,7 +220,7 @@ Best <span style="color: #FF8800;">Shoes</span> | <span>See all --></span></a></
 <div class="col-md-3">
 {% for tops in tops_cat_link %}
 <h5><a href="{{ tops.category.get_category_absolete_url }}" style="color: #444 !important; font-weight: bold; 
-font-size: 22px;">
+font-size: 18px;">
 Best <span style="color: #FF8800;">Tops</span> | <span>See all --></span></a></span></h5>
 {% endfor %}
 </div>

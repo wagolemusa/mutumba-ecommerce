@@ -13,17 +13,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href='{% url "shops:home" %}' style="color: #fff; font-size: 20px; font-weight: bold;"><i class="fa fa-home"></i>Home</a>
+                        <a class="nav-link" href='{% url "shops:home" %}' style="color: #fff; font-size: 18px; font-weight: bold;"><i class="fa fa-home"></i>Home</a>
                     </li>
                       <li class="nav-item">
-                      <a class="nav-link" href='{% url "shops:new" %}' style="color: #fff; font-size: 20px; font-weight: bold;">
+                      <a class="nav-link" href='{% url "shops:new" %}' style="color: #fff; font-size: 18px; font-weight: bold;">
                         <i class="fa fa-volume-control-phone">
                         </i>
                         New Products
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#" style="color: #fff; font-size: 20px; font-weight: bold;">
+                      <a class="nav-link" href='{% url "shops:contact" %}' style="color: #fff; font-size: 18px; font-weight: bold;">
                         <i class="fa fa-volume-control-phone">
                         </i>
                         Contact
@@ -32,11 +32,17 @@
 
 
                 </ul>
-                <div class="form-inline my-2 my-lg-0">
-                  <form method="get" action="./search.php" class="form-horizontal" enctype="multipart/form-data">
-                      <input class="form-control mr-sm-2" name="inputs" type="search" placeholder="Search" aria-label="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" name="search" type="submit">Search</button>
-                  </form>
+    <div class="form-inline my-2 my-lg-0">
+        <form method="GET" action="" novalidate="novalidate" class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
+      <input type="text" name="q" class="form-control mr-sm-2"  placeholder="Search" aria-label="Search" value="{{ request.GET.q }}" style="color: #fff; font-size: 16px; font-weight: bold;">
+
+      <input type="submit" value="search" class="btn btn-outline-success btn-rounded waves-effect"/>
+
+      <!-- <i class="fas fa-search" type="submit" value="search" aria-hidden="true"> -->
+        <!-- <input type="submit" value="search"> -->
+      </i>
+
+    </form>
               </div>
 
             <ul class="navbar-nav ">
@@ -44,7 +50,7 @@
 
            
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'shops:order-summary' %}" style="color: #fff; font-size: 20px; font-weight: bold;">
+              <a class="nav-link" href="{% url 'shops:order-summary' %}" style="color: #fff; font-size: 18px; font-weight: bold;">
                 <i class="fa fa-shopping-basket">
 
                 </i>
@@ -53,7 +59,7 @@
             </li>
              <li class="nav-item dropdown form-inline">
                     <a class="nav-link" href="#">
-                        <a class='nav-link fas fa-sign-out-alt' href="{% url 'account_logout' %}" style="color: #fff; font-size: 20px; font-weight: bold;"> Logout</a>
+                        <a class='nav-link fas fa-sign-out-alt' href="{% url 'account_logout' %}" style="color: #fff; font-size: 18px; font-weight: bold;"> Logout</a>
                     </a>
             </li>
 
@@ -62,12 +68,12 @@
               <li class="nav-item dropdown form-inline">
                   <a class="nav-link" href="#">
                   <a class='nav-link fas fa-sign-in-alt' href='
-                  {% url 'account_login' %}' style="color: #fff; font-size: 20px; font-weight: bold;"> Login</a>
+                  {% url 'account_login' %}' style="color: #fff; font-size: 18px; font-weight: bold;"> Login</a>
                   </a>
             </li>
               <li class="nav-item dropdown form-inline">
                     <a class="nav-link" href="#">
-                        <a class='nav-link fa fa-user' href='{% url 'account_signup' %}' style="color: #fff; font-size: 20px; font-weight: bold;"> Signup</a>
+                        <a class='nav-link fa fa-user' href='{% url 'account_signup' %}' style="color: #fff; font-size: 18px; font-weight: bold;"> Signup</a>
                     </a>
             </li>
             {% endif %}

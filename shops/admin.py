@@ -3,7 +3,8 @@ from django.contrib import admin
 # Register your models here.
 from .models import (Item, OrderItem, Order, 
 								Payment,BillingAddress,Mpesapay,Coupon,
-								Refund, Category)
+								Refund, Category, Contact)
+
 class CategoryAdmin(admin.ModelAdmin):
 	list_display = ('name', 'slug')
 	prepopulated_fields = {'slug':('name',)}
@@ -44,6 +45,14 @@ class OrderAdmin(admin.ModelAdmin):
 
 	actions = [make_refund_accepted]
 
+class ContactAdmin(admin.ModelAdmin):
+	list_display = [
+		"full_name",
+		"phone",
+		"email",
+		"timestamp",
+	]
+
 admin.site.register(Item)
 admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)
@@ -53,3 +62,4 @@ admin.site.register(Mpesapay)
 admin.site.register(Coupon)
 admin.site.register(Refund)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Contact, ContactAdmin)

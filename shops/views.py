@@ -20,7 +20,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import (
 						CheckoutForm, CouponForm, 
 						RefundForm, PostForms,
-						ImageForms
+						ImageForms,CantactForms
 					)
 from .mpesa import Mpesaform
 from .models import (
@@ -28,7 +28,7 @@ from .models import (
 				Order, BillingAddress, 
 				Payment, Mpesapay,
 				Coupon,Refund, Category,
-				Images
+				Images, Contact
 
 			)
 import stripe
@@ -80,6 +80,7 @@ def create_ref_code():
 def products(request, slug):
 	instance = get_object_or_404(Item, slug=slug)
 	querySet_list = Item.objects.all()
+	
 	categories = Category.objects.all()
 	category = get_object_or_404(Category, slug=slug)
 	# category = Category.objects.get(name = slug)
@@ -91,7 +92,7 @@ def products(request, slug):
 		# "item": item,
 		"instance":instance,
 		"querySet_list": querySet_list,
-		# "show": show,
+		"show": show,
 	}
 	# context = {
 
@@ -181,6 +182,19 @@ class PaymentView(View):
 def about(request):
 	return render(request, "about.html")
 
+def contact(request):
+	form = CantactForms(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		messages.success(request, "Successfully Created")
+	content = {
+		'form': form,
+	}
+	return render(request, "contact.html", content)
+
+
+
 def services(request):
 	object_list = Item.objects.all().order_by("-timestamp")
 	query = request.GET.get("q")
@@ -217,40 +231,40 @@ def home(request):
 	page = request.GET.get('page')
 	querySet = paginator.get_page(page)
 
-	# # Trouser 
-	# w = Category.objects.get(name = 'Trouser')
-	# cat = Item.objects.filter(category=w).order_by('-title')[:6]
+	# Trouser 
+	w = Category.objects.get(name = 'Trouser')
+	cat = Item.objects.filter(category=w).order_by('-title')[:6]
 	
-	# # get link Trouser categories
-	# get_link = Category.objects.get(name = 'Trouser')
-	# link = Item.objects.filter(category=get_link)[:1]
+	# get link Trouser categories
+	get_link = Category.objects.get(name = 'Trouser')
+	link = Item.objects.filter(category=get_link)[:1]
 
 	# # Shoes Collections
 	# shoes = Category.objects.get(name = 'Shoes')
 	# shoes_cat = Item.objects.filter(category=shoes).order_by('-title')[:6]
 	
-	# # get link shoes categories
+	# get link shoes categories
 	# get_link_shoes = Category.objects.get(name = 'Shoes')
 	# linkshoes = Item.objects.filter(category=get_link_shoes)[:1]
 
-	# # Tops Collections
-	# tops = Category.objects.get(name = 'Tops')
-	# tops_cat = Item.objects.filter(category=tops).order_by('-title')[:6]
+	# Tops Collections
+	tops = Category.objects.get(name = 'Tops')
+	tops_cat = Item.objects.filter(category=tops).order_by('-title')[:6]
 
 
-	# # Get link tops cotegories
-	# get_link_tops = Category.objects.get(name = 'Tops')
-	# tops_cat_link = Item.objects.filter(category=get_link_tops)[:1]
+	# Get link tops cotegories
+	get_link_tops = Category.objects.get(name = 'Tops')
+	tops_cat_link = Item.objects.filter(category=get_link_tops)[:1]
 
 	context = {
 		'object_list': querySet,
-		# 'cat':cat,
+		'cat':cat,
 		# 'shoes_cat':shoes_cat,
-		# 'tops_cat': tops_cat,
-		# 'link': link,
+		'tops_cat': tops_cat,
+		'link': link,
 		# 'linkshoes':linkshoes,
-		# 'tops_cat_link':tops_cat_link,
-		# 'today':today
+		'tops_cat_link':tops_cat_link,
+		'today':today
 		}
 	return render(request, "home.html", context)
 

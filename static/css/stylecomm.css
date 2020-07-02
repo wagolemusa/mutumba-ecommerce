@@ -1,3 +1,12 @@
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .cardn {
+     word-wrap: break-word;
+     background-color: #fff;
+    }
+}
+
 body{
     background: #EAEDED;
 }
@@ -40,6 +49,7 @@ body{
  .custom-navbar{
     background-color: #FF8800;
     color: #fff;
+    height: 80px;
 }
 
 .category{
@@ -94,15 +104,16 @@ body{
     padding: 2em;
 
 }
-/*@media only screen and (max-width:480px)
+@media only screen and (max-width:480px)
 {    
-    .image img{
-    height: 50px;
-    }
-
+   .trouser{
+    background-color: #000;
+    padding: 1em;
 
 }
-*/
+
+}
+
 
 /******** Services***********/
 
@@ -149,3 +160,74 @@ body{
     padding-top: 8em;
     padding-bottom: 5em;
 }
+
+/*..........Cantact Us..................*/
+.map-container-section {
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-container-section iframe {
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+.form-header {
+    padding: 1rem;
+    margin-top: -3.13rem;
+    margin-bottom: 3rem;
+    color: #fff;
+    text-align: center;
+    background-color: #ff4444;
+    border-radius: .125rem;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.btn-floating i {
+    display: inline-block;
+    width: inherit;
+    color: #fff;
+    text-align: center;
+}
+
+.btn-floating i {
+    font-size: 1.25rem;
+    line-height: 47px;
+}
+
+.btn-floating {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    width: 47px;
+    height: 47px;
+    background-color: #ff4444;
+}
+
+
+.text1 h4{
+    color: #000;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.cardn {
+ word-wrap: break-word;
+ background-color: #fff;
+}
+
