@@ -76,14 +76,13 @@ def post_create(request):
 def create_ref_code():
 	return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 
-
 def products(request, slug):
 	instance = get_object_or_404(Item, slug=slug)
 	querySet_list = Item.objects.all()
-	
-	categories = Category.objects.all()
+	# def get_queryset(self):
+	# show = get_object_or_404(Item, category = slug)
 	category = get_object_or_404(Category, slug=slug)
-	# category = Category.objects.get(name = slug)
+	# category = Category.objects.get(pk=pk)
 	show = Item.objects.filter(category=category)
 
 	context = {
@@ -94,13 +93,7 @@ def products(request, slug):
 		"querySet_list": querySet_list,
 		"show": show,
 	}
-	# context = {
-
-	# 	'items': Item.objects.all()
-
-	# }
 	return render(request, "product.html", context)
-
 
 def list_category(request, slug):
 	categories = Category.objects.all()
@@ -141,8 +134,10 @@ class CheckoutView(View):
 			if form.is_valid():
 				street_address = form.cleaned_data.get('street_address')
 				apartment_address = form.cleaned_data.get('apartment_address')
-				country = form.cleaned_data.get('country')
+				county = form.cleaned_data.get('county')
+				phone = form.cleaned_data.get('phone')
 				zip = form.cleaned_data.get('zip')
+
 				# TODO: Functionality for these field
 				# same_shippin_address = form.cleaned_data.get(
 				# 	'same_shippin_address')
@@ -153,8 +148,8 @@ class CheckoutView(View):
 					user=self.request.user,
 					street_address=street_address,
 					apartment_address=apartment_address,
-					phone=phone,
 					county=county,
+					phone=phone,
 					zip=zip
 				)
 				billing_address.save()
