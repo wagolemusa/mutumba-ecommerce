@@ -37,7 +37,8 @@ LABEL_CHOICES = (
 )
 
 class Item(models.Model):
-	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                    related_name="category_set")
 	title = models.CharField(max_length=100)
 	price = models.FloatField()
 	discount_price = models.FloatField(blank=True, null=True)
