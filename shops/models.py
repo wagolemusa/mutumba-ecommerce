@@ -155,7 +155,7 @@ class BillingAddress(models.Model):
 	street_address = models.CharField(max_length=100)
 	apartment_address = models.CharField(max_length=100)
 	county = models.CharField(max_length=100)
-	phone = models.IntegerField()
+	phone = models.BigIntegerField(blank=True, null=True)
 	zip = models.CharField(max_length=100)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
@@ -178,7 +178,7 @@ class Mpesapay(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL,
 													on_delete=models.SET_NULL, blank=True, null=True)
 	amount = models.FloatField()
-	phone = models.IntegerField()
+	phone = models.BigIntegerField(blank=True, null=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
 
 	def __str__self(self):
@@ -196,7 +196,7 @@ class Refund(models.Model):
 	order = models.ForeignKey(Order, on_delete=models.CASCADE)
 	reason = models.TextField()
 	accepted = models.BooleanField(default=False)
-	email = models.EmailField()
+	email = models.EmailField(max_length=100)
 
 	def __str__(self):
 		return "%s" %(self.pk)
@@ -216,7 +216,7 @@ class Contact(models.Model):
 	phone  = models.IntegerField()
 	email = models.CharField(max_length=150)
 	subject = models.CharField(max_length=200)
-	message = models.TextField()
+	message = models.TextField(max_length=500)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 	def __unicode__(self):
