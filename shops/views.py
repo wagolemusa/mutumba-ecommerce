@@ -84,6 +84,7 @@ def products(request, slug):
 	category = get_object_or_404(Category, slug=slug)
 	# category = Category.objects.get(pk=pk)
 	show = Item.objects.filter(category=category)
+	# show = Item.filter(category=category)
 
 	context = {
 		'items': Item.objects.all(),
@@ -227,16 +228,16 @@ def home(request):
 	querySet = paginator.get_page(page)
 
 	# Trouser 
-	# w = Category.objects.get(name = 'Trouser')
-	# cat = Item.objects.filter(category=w).order_by('-title')[:6]
+	w = Category.objects.get(name = 'Trouser')
+	cat = Item.objects.filter(category=w).order_by('-title')[:6]
 	
 	# # get link Trouser categories
-	# get_link = Category.objects.get(name = 'Trouser')
-	# link = Item.objects.filter(category=get_link)[:1]
+	get_link = Category.objects.get(name = 'Trouser')
+	link = Item.objects.filter(category=get_link)[:1]
 
 	# # Shoes Collections
-	# shoes = Category.objects.get(name = 'Shoes')
-	# shoes_cat = Item.objects.filter(category=shoes).order_by('-title')[:6]
+	shoes = Category.objects.get(name = 'Shoes')
+	shoes_cat = Item.objects.filter(category=shoes).order_by('-title')[:6]
 	
 	# get link shoes categories
 	# get_link_shoes = Category.objects.get(name = 'Shoes')
@@ -254,7 +255,7 @@ def home(request):
 	context = {
 		'object_list': querySet,
 		# 'cat':cat,
-		# # 'shoes_cat':shoes_cat,
+		'shoes_cat':shoes_cat,
 		# 'tops_cat': tops_cat,
 		# 'link': link,
 		# # 'linkshoes':linkshoes,
