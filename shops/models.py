@@ -5,8 +5,8 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 # Create your models here.
 
-def upload_location(instance, filename):
-	return "%s/%s" %(instance.id, filename)
+# def upload_location(instance, filename):
+# 	return "%s/%s" %(instance.id, filename)
 
 class Category(models.Model):
 	name = models.CharField(max_length=250)
@@ -48,7 +48,7 @@ class Item(models.Model):
 	type_cloth  = models.CharField(max_length=100)
 	label = models.CharField(choices=LABEL_CHOICES, max_length=1)
 	slug = models.SlugField() 
-	image = models.ImageField(upload_to=upload_location, 
+	image = models.ImageField(
 					null=True, 
 					blank=True,
 					width_field="width_field",
@@ -204,7 +204,7 @@ class Refund(models.Model):
 # Image 
 class Images(models.Model):
 	item = models.ForeignKey(Item, on_delete=models.CASCADE,)
-	image = models.ImageField(upload_to="upload_location",
+	image = models.ImageField(
 		null=True,
 		blank=True)
 

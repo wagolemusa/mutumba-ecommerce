@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_crispy_bulma',
     'django_countries',
     'shops',
+    'storages',
 
 
 ]
@@ -161,7 +162,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 MEDIA_URL = "/media/"
 # MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media_cdn")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 django_heroku.settings(locals())
 
@@ -185,3 +186,11 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = (
 )
 
 CRISPY_TEMPLATE_PACK = "bulma"
+
+AWS_ACCESS_KEY_ID = "AKIAYL6ZWAG7P5SABPXB"
+AWS_SECRET_ACCESS_KEY ="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"
+AWS_STORAGE_BUCKET_NAME = "shopmutumba"
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

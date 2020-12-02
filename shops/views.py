@@ -85,12 +85,14 @@ def products(request, slug):
 	# category = Category.objects.get(pk=pk)
 	show = Item.objects.filter(category=category)
 	# show = Item.filter(category=category)
+	# Model.objects.get(field_name=some_param)
 
 	context = {
 		'items': Item.objects.all(),
 		# "title": instance.title,
 		# "item": item,
 		"instance":instance,
+		"category": category,
 		"querySet_list": querySet_list,
 		"show": show,
 	}
@@ -144,7 +146,6 @@ class CheckoutView(View):
 				# 	'same_shippin_address')
 				# save_info = form.cleaned_data.get('save_info')
 				payment_option = form.cleaned_data.get('payment_option')
-
 				billing_address = BillingAddress(
 					user=self.request.user,
 					street_address=street_address,
@@ -173,7 +174,6 @@ class PaymentView(View):
 	def get(self, *args, **kwargs):
 
 		return render(self.request, "payment.html")
-
 
 def about(request):
 	return render(request, "about.html")
