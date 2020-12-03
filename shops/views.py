@@ -254,7 +254,7 @@ def home(request):
 
 	context = {
 		'object_list': querySet,
-		'cat':cat,
+		# 'cat':cat,
 		'shoes_cat':shoes_cat,
 		# 'tops_cat': tops_cat,
 		# 'link': link,
