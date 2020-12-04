@@ -339,7 +339,7 @@ class Mpesa(View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL": "https://senditparcel.herokuapp.com/api/v2/callback",
+				    "CallBackURL": "https://mainaboutique.herokuapp.com/callbackurl",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
@@ -358,6 +358,43 @@ class Mpesa(View):
 		except ObjectDoesNotExist:
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
+
+def callbackurl(request):
+	"""
+	It recieves the response from safaricam
+	"""
+	requests = request.get_json()
+	data = json.dumps(requests)
+	json_da = requests.get('Body')
+	print (json_da)
+
+	# mpesa_reciept = (int["Body"]["stkCallback"]["CallbackMetadata"]["Item"][1]["Value"])
+
+	# for item in data["Body"]["stkCallback"]["CallbackMetadata"]["Item"]:
+	# 	if item["Name"] == "MpesaReceiptNumber":
+	# 		mpesa_reciept = (item["Value"])
+
+	resultcode = json_da['stkCallback']['ResultCode']
+	resultdesc = json_da['stkCallback']['ResultDesc']
+	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
+	mpesa_reciept = "MPESA"
+		
+	# print(mpesa_reciept)
+	def pay():
+		if resultcode == 0:
+			return "Paid"
+		elif resultcode == 1:
+			return "Faild"
+		else:
+			return "canceled"
+	status = pay()
+	print(status)
+	callback = get_object_or_404(Mpesapay, user=request.user)
+	callback.cash = False
+	callback.save(["status"])
+
+
+
 
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
