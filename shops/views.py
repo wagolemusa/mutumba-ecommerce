@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.forms import modelformset_factory
 from django.http import HttpResponse, HttpResponseRedirect
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 # from django.contrib.staticfiles
@@ -359,6 +359,7 @@ class Mpesa(View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
+@csrf_exempt
 def callbackurl(request):
 	"""
 	It recieves the response from safaricam
