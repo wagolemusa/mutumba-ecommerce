@@ -339,7 +339,7 @@ class Mpesa(View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL": "https://mainaboutique.herokuapp.com/callbackurl",
+				    "CallBackURL": "http://127.0.0.1:8000/callbackurl",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
@@ -363,10 +363,13 @@ def callbackurl(request):
 	"""
 	It recieves the response from safaricam
 	"""
-	requests = request.get_json()
-	data = json.dumps(requests)
-	json_da = requests.get('Body')
-	print (json_da)
+	json_da = json.loads(request.body.decode('utf-8'))
+	print(json_da)
+
+	# requests = request.get_json()
+	# data = json.dumps(requests)
+	# json_da = requests.get('Body')
+	# print (json_da)
 
 	# mpesa_reciept = (int["Body"]["stkCallback"]["CallbackMetadata"]["Item"][1]["Value"])
 
