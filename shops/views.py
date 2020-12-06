@@ -396,8 +396,8 @@ def callbackurl(request):
 	status = pay()
 	print(status)
 
-	callbackk = Mpesapay.objects.filter(cash='notpayed').update(cash='status')
-	print(callback)
+	Mpesapay.objects.filter(cash='notpayed').update(cash='status')
+	# print(callback)
 	# callback = Mpesapay.objects.get(cash=False)
 	# callback.save(["status"])
 
