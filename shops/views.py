@@ -339,7 +339,7 @@ class Mpesa(View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL": "http://127.0.0.1:8000/callbackurl",
+				    "CallBackURL": "https://mainaboutique.herokuapp.com/callbackurl",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
