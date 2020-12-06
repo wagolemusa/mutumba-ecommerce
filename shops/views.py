@@ -366,7 +366,7 @@ def callbackurl(request):
 	"""
 	# r = {'Body': {'stkCallback': {'MerchantRequestID': '8923-15418751-1', 'CheckoutRequestID': 'ws_CO_061220200602548116', 'ResultCode': 1032, 'ResultDesc': 'Request cancelled by user'}}}
 	
-	json_da = json.loads(request.Body.decode('utf-8'))
+	json_da = json.loads(request.body)
 	print(json_da)
 
 	# requests = request.get_json()
