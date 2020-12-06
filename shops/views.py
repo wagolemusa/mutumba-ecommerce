@@ -364,7 +364,9 @@ def callbackurl(request):
 	"""
 	It recieves the response from safaricam
 	"""
-	json_da = json.loads(request.body.decode('utf-8'))
+	# r = {'Body': {'stkCallback': {'MerchantRequestID': '8923-15418751-1', 'CheckoutRequestID': 'ws_CO_061220200602548116', 'ResultCode': 1032, 'ResultDesc': 'Request cancelled by user'}}}
+	
+	json_da = json.loads(request.Body.decode('utf-8'))
 	print(json_da)
 
 	# requests = request.get_json()
