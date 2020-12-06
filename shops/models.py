@@ -182,7 +182,7 @@ class Mpesapay(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	cash = models.CharField(default='notpayed', max_length=15)
 
-	def __str__self(self):
+	def __str__(self):
 		return self.user.username
 
 

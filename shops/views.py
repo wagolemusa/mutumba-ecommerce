@@ -303,11 +303,10 @@ class Mpesa(View):
 			if form.is_valid():
 				phone = form.cleaned_data.get('phone')
 
-				pay_bills = Mpesapay(
-					user = self.request.user,
-					phone=phone,
-					amount=amount,
-				)
+				pay_bills = Mpesapay()
+				pay_bills.user = self.request.user
+				pay_bills.phone=phone
+				pay_bills.amount=amount
 				pay_bills.save()
 				
 				# Lipa na mpesa Functionality 
@@ -396,8 +395,10 @@ def callbackurl(request):
 	status = pay()
 	print(status)
 
-	Mpesapay.objects.filter(cash='notpayed').update(cash='status')
-	# print(callback)
+	callback = Mpesapay.objects.filter(cash='notpayed')
+	callback.update(cash='status')
+	print(callback)
+	
 	# callback = Mpesapay.objects.get(cash=False)
 	# callback.save(["status"])
 
