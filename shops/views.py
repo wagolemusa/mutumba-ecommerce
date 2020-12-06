@@ -397,8 +397,12 @@ def callbackurl(request):
 
 	callback = Mpesapay.objects.filter(cash='notpayed')
 	callback.update(cash=status)
-	print(callback)
-
+	
+	if status == 'Paid':
+		order_items = order.items.all()
+		order_items.update(ordered=True)
+		for item in order_items:
+			item.save()
 	# callback = Mpesapay.objects.get(cash=False)
 	# callback.save(["status"])
 
