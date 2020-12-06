@@ -363,21 +363,8 @@ def callbackurl(request):
 	"""
 	It recieves the response from safaricam
 	"""
-	# r = {'Body': {'stkCallback': {'MerchantRequestID': '8923-15418751-1', 'CheckoutRequestID': 'ws_CO_061220200602548116', 'ResultCode': 1032, 'ResultDesc': 'Request cancelled by user'}}}
-	
 	json_da = json.loads(request.body)
 	print(json_da)
-
-	# requests = request.get_json()
-	# data = json.dumps(requests)
-	# json_da = requests.get('Body')
-	# print (json_da)
-
-	# mpesa_reciept = (int["Body"]["stkCallback"]["CallbackMetadata"]["Item"][1]["Value"])
-
-	# for item in data["Body"]["stkCallback"]["CallbackMetadata"]["Item"]:
-	# 	if item["Name"] == "MpesaReceiptNumber":
-	# 		mpesa_reciept = (item["Value"])
 
 	resultcode = json_da['Body']['stkCallback']['ResultCode']
 	resultdesc = json_da['Body']['stkCallback']['ResultDesc']
@@ -398,19 +385,12 @@ def callbackurl(request):
 	callback = Mpesapay.objects.filter(cash='notpayed')
 	callback.update(cash=status)
 	
+	order = Order.objects.get(user=self.request.user, ordered=False)
 	if status == 'Paid':
 		order_items = order.items.all()
 		order_items.update(ordered=True)
 		for item in order_items:
 			item.save()
-	# callback = Mpesapay.objects.get(cash=False)
-	# callback.save(["status"])
-
-	# callback = get_object_or_404(Mpesapay, user=request.user)
-	# callback.cash = False
-	# callback.save(["status"])
-
-
 
 
 class PaymentViews(View):
