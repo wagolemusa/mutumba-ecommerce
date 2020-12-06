@@ -380,8 +380,8 @@ def callbackurl(request):
 	# 	if item["Name"] == "MpesaReceiptNumber":
 	# 		mpesa_reciept = (item["Value"])
 
-	resultcode = json_da['stkCallback']['ResultCode']
-	resultdesc = json_da['stkCallback']['ResultDesc']
+	resultcode = json_da['Body']['stkCallback']['ResultCode']
+	resultdesc = json_da['Body']['stkCallback']['ResultDesc']
 	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
 	mpesa_reciept = "MPESA"
 		
