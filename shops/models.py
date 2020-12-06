@@ -180,7 +180,7 @@ class Mpesapay(models.Model):
 	amount = models.FloatField()
 	phone = models.BigIntegerField(blank=True, null=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
-	cash = models.BooleanField(default=False)
+	cash = models.CharField(default='notpayed', max_length=15)
 
 	def __str__self(self):
 		return self.user.username

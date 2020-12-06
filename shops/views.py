@@ -395,9 +395,13 @@ def callbackurl(request):
 			return "canceled"
 	status = pay()
 	print(status)
-	callback = get_object_or_404(Mpesapay, user=request.user)
-	callback.cash = False
+
+	callback = Mpesapay.objects.get(cash=False)
 	callback.save(["status"])
+	
+	# callback = get_object_or_404(Mpesapay, user=request.user)
+	# callback.cash = False
+	# callback.save(["status"])
 
 
 
