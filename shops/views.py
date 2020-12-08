@@ -386,7 +386,7 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		phonecal = Mpesapay.objects.get(phone)
+		phonecal = Mpesapay.objects.only('phone')
 		print(phonecal)
 	else:
 		print("notnice")
