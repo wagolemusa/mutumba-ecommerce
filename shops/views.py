@@ -386,9 +386,9 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		print(nice)
+		print("nice")
 	else:
-		print(notnice)
+		print("notnice")
 		# order = Order.objects.get(user=request.user, ordered=False)
 		# order_items = order.items.all()
 		# order_items.update(ordered=True)
