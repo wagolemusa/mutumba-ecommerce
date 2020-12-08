@@ -387,7 +387,8 @@ def callbackurl(request):
 	
 	if status == 'Paid':
 		phonecal = Mpesapay.objects.only('phone')[:1]
-		print(phonecal)
+		for call in phonecal:
+			print(call)
 	else:
 		print("notnice")
 		# order = Order.objects.get(user=request.user, ordered=False)
