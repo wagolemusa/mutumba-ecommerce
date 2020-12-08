@@ -386,11 +386,14 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		order = Order.objects.get(user=request.user, ordered=False)
-		order_items = order.items.all()
-		order_items.update(ordered=True)
-		for item in order_items:
-			item.save()
+		print(nice)
+	else:
+		print(notnice)
+		# order = Order.objects.get(user=request.user, ordered=False)
+		# order_items = order.items.all()
+		# order_items.update(ordered=True)
+		# for item in order_items:
+		# 	item.save()
 
 
 class PaymentViews(View):
