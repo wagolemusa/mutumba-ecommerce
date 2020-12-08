@@ -359,7 +359,7 @@ class Mpesa(View):
 			return redirect("shops:order-summary")
 
 @csrf_exempt
-def callbackurl(request):
+def callbackurl(request, self):
 	"""
 	It recieves the response from safaricam
 	"""
@@ -385,8 +385,8 @@ def callbackurl(request):
 	callback = Mpesapay.objects.filter(cash='notpayed')
 	callback.update(cash=status)
 	
-	order = Order.objects.get(user=self.request.user, ordered=False)
 	if status == 'Paid':
+		order = Order.objects.get(user=self.request.user, ordered=False)
 		order_items = order.items.all()
 		order_items.update(ordered=True)
 		for item in order_items:
