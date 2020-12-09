@@ -402,16 +402,22 @@ def callbackurl(request):
 			sms = africastalking.SMS
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
-			# return {"message": "Driver Asigned"}
 	else:
-		print("notnice")
-		# order = Order.objects.get(user=request.user, ordered=False)
-		# order_items = order.items.all()
-		# order_items.update(ordered=True)
-		# for item in order_items:
-		# 	item.save()
+		phonecal =  Mpesapay.objects.filter(phone__startswith='254')[:1].values()
+		for call in phonecal:
+			num = call['phone']
+			phone = str(num)
+			# Sends sms to mobile phone
+			message = "Your payments for shopping with mainaboutique is %s. Please Try again https://mainaboutique.co.ke"%(status)
+			username = "refuge"    # use 'sandbox' for development in the test environment
+			api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
+			africastalking.initialize(username, api_key)
 
-
+			# Initialize a service e.g. SMS
+			sms = africastalking.SMS
+			# Use the service synchronously
+			response = sms.send(message, ['+' + phone ])
+	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
 		order = Order.objects.get(user=self.request.user, ordered=False)
