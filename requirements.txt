@@ -1,6 +1,6 @@
-africastalking==1.2.3
 boto3==1.16.5
 botocore==1.19.5
+africastalking==1.2.3
 certifi==2019.11.28
 chardet==3.0.4
 contextlib2==0.6.0.post1
