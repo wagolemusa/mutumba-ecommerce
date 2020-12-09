@@ -390,8 +390,8 @@ def callbackurl(request):
 	if status == 'Paid':
 		phonecal =  Mpesapay.objects.filter(phone__startswith='254')[:1].values()
 		for call in phonecal:
-			phone = call['phone']
-			print(phone)
+			num = call['phone']
+			phone = str(num)
 			# Sends sms to mobile phone
 			message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
 			username = "refuge"    # use 'sandbox' for development in the test environment
