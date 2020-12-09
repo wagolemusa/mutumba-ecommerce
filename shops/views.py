@@ -31,6 +31,7 @@ from .models import (
 				Images, Contact
 
 			)
+import africastalking
 import stripe
 import base64
 import requests
@@ -40,7 +41,7 @@ from requests.auth import HTTPBasicAuth
 import datetime
 import random
 import string
-import africastalking
+
 
 stripe.api_key = "pk_test_B471oTONAVuayztFhrOFhxqD00vmj5u5c9"
 
