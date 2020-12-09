@@ -53,12 +53,21 @@ class ContactAdmin(admin.ModelAdmin):
 		"timestamp",
 	]
 
+class MpesapayAdmin(admin.ModelAdmin):
+	list_display = [
+		"user",
+		"amount",
+		"phone",
+		"cash",
+		"timestamp",
+	]
+
 admin.site.register(Item)
 admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Payment)
 admin.site.register(BillingAddress)
-admin.site.register(Mpesapay)
+admin.site.register(Mpesapay, MpesapayAdmin)
 admin.site.register(Coupon)
 admin.site.register(Refund)
 admin.site.register(Category, CategoryAdmin)

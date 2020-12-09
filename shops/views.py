@@ -386,9 +386,21 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		phonecal = Mpesapay.objects.filter('phone')[:1]
+		phonecal =  Mpesapay.objects.filter(phone__startswith='254')[:1].values()
 		for call in phonecal:
-			print(call)
+			phone = call['phone']
+			
+			# Sends sms to mobile phone
+			message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
+			username = "refuge"    # use 'sandbox' for development in the test environment
+			api_key = "16a46ca76a9aa7e78b7edb77c5a037b296e46513b99252b48eba390798616e44"      # use your sandbox app API key for development in the test environment
+			africastalking.initialize(username, api_key)
+
+			# Initialize a service e.g. SMS
+			sms = africastalking.SMS
+			# Use the service synchronously
+			response = sms.send(message, ['+' + phone ])
+			# return {"message": "Driver Asigned"}
 	else:
 		print("notnice")
 		# order = Order.objects.get(user=request.user, ordered=False)
