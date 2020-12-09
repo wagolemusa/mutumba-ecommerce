@@ -40,6 +40,7 @@ from requests.auth import HTTPBasicAuth
 import datetime
 import random
 import string
+import africastalking
 
 stripe.api_key = "pk_test_B471oTONAVuayztFhrOFhxqD00vmj5u5c9"
 
@@ -393,7 +394,7 @@ def callbackurl(request):
 			# Sends sms to mobile phone
 			message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
 			username = "refuge"    # use 'sandbox' for development in the test environment
-			api_key = "16a46ca76a9aa7e78b7edb77c5a037b296e46513b99252b48eba390798616e44"      # use your sandbox app API key for development in the test environment
+			api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
 			africastalking.initialize(username, api_key)
 
 			# Initialize a service e.g. SMS
