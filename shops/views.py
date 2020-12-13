@@ -144,8 +144,8 @@ class CheckoutView(View):
 				zip = form.cleaned_data.get('zip')
 
 				# TODO: Functionality for these field
-				# same_shippin_address = form.cleaned_data.get(
-				# 	'same_shippin_address')
+				# same_shipping_address = form.cleaned_data.get(
+				# 	'same_shipping_address')
 				# save_info = form.cleaned_data.get('save_info')
 				payment_option = form.cleaned_data.get('payment_option')
 				billing_address = BillingAddress(
