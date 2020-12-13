@@ -388,10 +388,11 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		phonecal =  Mpesapay.objects.filter(phone__startswith='254')[:1].values()
+		phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('phone')[:1].values()
 		for call in phonecal:
 			num = call['phone']
 			phone = str(num)
+			print(phone)
 			# Sends sms to mobile phone
 			message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
 			username = "refuge"    # use 'sandbox' for development in the test environment
@@ -403,10 +404,11 @@ def callbackurl(request):
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
 	else:
-		phonecal =  Mpesapay.objects.filter(phone__startswith='254')[:1].values()
+		phonecal =  Mpesapay.objects.filter(phone__startswith='254').order_by('phone')[:1].values()
 		for call in phonecal:
 			num = call['phone']
 			phone = str(num)
+			print(phone)
 			# Sends sms to mobile phone
 			message = "Your payments for shopping with mainaboutique is %s. Please Try again https://mainaboutique.co.ke"%(status)
 			username = "refuge"    # use 'sandbox' for development in the test environment
