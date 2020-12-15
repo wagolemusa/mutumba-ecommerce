@@ -403,6 +403,7 @@ def callbackurl(request):
 			sms = africastalking.SMS
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
+
 			order = Order.objects.get(user=self.request.user, ordered=False)
 			order_items = order.items.all()
 			order_items.update(ordered=True)
@@ -429,7 +430,7 @@ def callbackurl(request):
 	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
-		order = Order.objects.get(user=self.request.user, ordered=False)
+		order = Order.objects.get(user=request.user, ordered=False)
 		if order.billing_address:
 			context = {
 				'order': order,
