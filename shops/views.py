@@ -403,6 +403,13 @@ def callbackurl(request):
 			sms = africastalking.SMS
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
+			order = Order.objects.get(user=self.request.user, ordered=False)
+			order_items = order.items.all()
+			order_items.update(ordered=True)
+			for item in order_items:
+				item.save()
+			return redirect('shops:recient') 
+
 	else:
 		phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
 		for call in phonecal:
