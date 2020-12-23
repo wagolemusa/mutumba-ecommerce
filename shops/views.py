@@ -404,11 +404,13 @@ def callbackurl(request):
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
 
-			order = Order.objects.get(user=request.user, ordered=False)
-			order_items = order.items.all()
-			order_items.update(ordered=True)
-			for item in order_items:
-				item.save()
+			def get(self, *args, **kwargs):
+				order = Order.objects.get(user=self.request.user, ordered=False)
+				order_items = order.items.all()
+				order_items.update(ordered=True)
+				for item in order_items:
+					item.save()
+
 			return redirect('shops:recient') 
 
 	else:
