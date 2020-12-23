@@ -411,7 +411,7 @@ def callbackurl(request):
 				for item in order_items:
 					item.save()
 
-			return redirect('shops:recient') 
+			return redirect("/") 
 
 	else:
 		phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
