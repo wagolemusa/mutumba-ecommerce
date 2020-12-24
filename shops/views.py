@@ -390,6 +390,7 @@ def callbackurl(request):
 	if status == 'Paid':
 		def get(self, *args, **kwargs):
 			order = Order.objects.get(user=self.request.user, ordered=False)
+			print(order)
 			order.update(ordered=True)
 			for item in order:
 				item.save()
