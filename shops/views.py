@@ -388,12 +388,12 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		def get(self, *args, **kwargs):
-			order = Order.objects.get(user=self.request.user, ordered=False)
-			print(order)
-			order.update(ordered=True)
-			for item in order:
-				item.save()
+		# def get(self, *args, **kwargs):
+		order = Order.objects.get(request.user, ordered=False)
+		print(order)
+		order.update(ordered=True)
+		for item in order:
+			item.save()
 			# order.ordered = True
 			# # order.payment = payment
 			# order.save()
