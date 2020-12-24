@@ -388,6 +388,15 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
+		def get(self, *args, **kwargs):
+			order = Order.objects.get(user=self.request.user, ordered=False)
+			order_items = order.items.all()
+			order_items.update(ordered=True)
+			for item in order_items:
+				item.save()
+			# order.ordered = True
+			# # order.payment = payment
+			# order.save()
 		phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
 		for call in phonecal:
 			num = call['phone']
@@ -403,14 +412,6 @@ def callbackurl(request):
 			sms = africastalking.SMS
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
-
-			def get(self, *args, **kwargs):
-				order = Order.objects.get(user=self.request.user, ordered=False)
-				order_items = order.items.all()
-				order_items.update(ordered=True)
-				for item in order_items:
-					item.save()
-
 			return redirect("/") 
 
 	else:
