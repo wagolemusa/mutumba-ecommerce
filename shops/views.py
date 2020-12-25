@@ -361,7 +361,7 @@ class Mpesa(View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
-# @login_required
+
 @csrf_exempt
 def callbackurl(request):
 	"""
@@ -390,13 +390,16 @@ def callbackurl(request):
 	callback.update(cash=status)
 	
 	if status == 'Paid':
-		# def get(self, *args, **kwargs):
-		order = Order.objects.get(user=request.user, ordered=False)
-		print(order)
-		order.update(ordered=True)
-		# order.save()
-		for item in order:
-			item.save()
+
+		@login_required
+		def get(self, *args, **kwargs):
+			order = Order.objects.get(user=request.user, ordered=False)
+			print(order)
+			order.update(ordered=True)
+			# order.save()
+			for item in order:
+				item.save()
+				
 			# order.ordered = True
 			# # order.payment = payment
 			# order.save()
