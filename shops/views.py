@@ -394,13 +394,21 @@ def callbackurl(request):
 		# @login_required
 		# def get(self, *args, **kwargs):
 		order = Order.objects.filter(ordered='False')
-		# print(order)
-		order.update(ordered=True)
-		for item in order:
-			item.save()
+		# # print(order)
+		# order.update(ordered=True)
+		# for item in order:
+		# 	item.save()
 			# order.ordered = True
 			# # order.payment = payment
 			# order.save()
+		order_items = order.items.all()
+		order_items.update(ordered=True)
+		for item in order_items:
+			item.save()
+				
+		order.ordered = True
+		# order.payment = payment
+		order.save()
 		phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
 		for call in phonecal:
 			num = call['phone']
