@@ -366,7 +366,7 @@ class Mpesa(LoginRequiredMixin, View):
 @method_decorator(login_required, name='dispatch')
 class Callbackurl(LoginRequiredMixin, View):
 	@csrf_exempt
-	def get(self, *args, **kwargs):
+	def post(self, *args, **kwargs):
 
 		"""
 		It recieves the response from safaricam
