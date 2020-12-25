@@ -396,10 +396,8 @@ def callbackurl(request):
 		order = Order.objects.filter(ordered='False')
 		# print(order)
 		order.update(ordered=True)
-		# order.save()
-			# for item in order:
-			# 	item.save()
-
+		for item in order:
+			item.save()
 			# order.ordered = True
 			# # order.payment = payment
 			# order.save()
