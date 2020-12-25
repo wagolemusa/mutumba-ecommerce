@@ -301,6 +301,7 @@ class Mpesa(LoginRequiredMixin, View):
 	def post(self, *args, **kwargs):
 		form = Mpesaform(self.request.POST or None)
 		try:
+			current_user = request.user
 			order = Order.objects.get(user=self.request.user, ordered=False)
 			amount = int(order.get_total())
 			print(amount)
@@ -365,7 +366,7 @@ class Mpesa(LoginRequiredMixin, View):
 # @method_decorator(login_required, name='dispatch')
 @csrf_exempt
 def callbackurl(request):
-	current_user = request.user
+	# current_user = request.user
 	"""
 	It recieves the response from safaricam
 	"""
