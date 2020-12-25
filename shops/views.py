@@ -362,9 +362,9 @@ class Mpesa(LoginRequiredMixin, View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
-@method_decorator(login_required, name='dispatch')
+# @method_decorator(login_required, name='dispatch')
 @csrf_exempt
-def callbackurl(request):
+def callbackurl(LoginRequiredMixin, request):
 	"""
 	It recieves the response from safaricam
 	"""
