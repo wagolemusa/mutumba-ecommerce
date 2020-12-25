@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 # @method_decorator(login_required, name='dispatch')
 @csrf_exempt
-def callbackurl(request):
+def callbackurl(self, request):
 	current_user = self.request.user
 	print(current_user.username)
 	"""
