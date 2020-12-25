@@ -301,7 +301,7 @@ class Mpesa(LoginRequiredMixin, View):
 	def post(self, *args, **kwargs):
 		form = Mpesaform(self.request.POST or None)
 		try:
-			current_user = request.user
+			current_user = self.request.user
 			order = Order.objects.get(user=self.request.user, ordered=False)
 			amount = int(order.get_total())
 			print(amount)
