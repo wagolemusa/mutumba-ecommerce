@@ -391,9 +391,9 @@ def callbackurl(request):
 	
 	if status == 'Paid':
 
-		@login_required
+		# @login_required
 		# def get(self, *args, **kwargs):
-		order = Order.objects.get(user=request.user, ordered=False)
+		order = Order.objects.get(ordered=False)
 		print(order)
 		order.update(ordered=True)
 		order.save()
