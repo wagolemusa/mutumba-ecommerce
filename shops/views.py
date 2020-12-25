@@ -396,10 +396,10 @@ def callbackurl(request):
 			order = Order.objects.get(user=request.user, ordered=False)
 			print(order)
 			order.update(ordered=True)
-			# order.save()
-			for item in order:
-				item.save()
-				
+			order.save()
+			# for item in order:
+			# 	item.save()
+
 			# order.ordered = True
 			# # order.payment = payment
 			# order.save()
