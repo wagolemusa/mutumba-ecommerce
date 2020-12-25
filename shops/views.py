@@ -287,7 +287,8 @@ def Newproduct(request):
 	return render(request, "new.html", context)
 
 # @login_required
-class Mpesa(View):
+@method_decorator(login_required, name='dispatch')
+class Mpesa(LoginRequiredMixin, View):
 	def get(self, *args, **kwargs):
 		form = Mpesaform()
 		order = Order.objects.get(user=self.request.user, ordered=False)
@@ -361,7 +362,7 @@ class Mpesa(View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
-
+@method_decorator(login_required, name='dispatch')
 @csrf_exempt
 def callbackurl(request):
 	"""
@@ -395,7 +396,7 @@ def callbackurl(request):
 		# def get(self, *args, **kwargs):
 		# order = Order.objects.filter(user = request.user, ordered='False')
 		# print(order)
-		order = Order.objects.get(user = request.user.is_authenticated, ordered=False)
+		order = Order.objects.get(user = request.user, ordered=False)
 		order.update(ordered=True)
 		for item in order:
 			item.save()
