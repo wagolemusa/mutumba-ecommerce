@@ -365,8 +365,6 @@ class Mpesa(LoginRequiredMixin, View):
 # @method_decorator(login_required, name='dispatch')
 @csrf_exempt
 def callbackurl(request):
-	if not request.user.is_staff or not request.user.is_superuser:
-		raise Http404
 	"""
 	It recieves the response from safaricam
 	"""
@@ -398,6 +396,8 @@ def callbackurl(request):
 		# def get(self, *args, **kwargs):
 		# order = Order.objects.filter(user = request.user, ordered='False')
 		# print(order)
+		if not request.user.is_staff or not request.user.is_superuser:
+			raise Http404
 		order = Order.objects.get(user = request.user, ordered=False)
 		order.update(ordered=True)
 		for item in order:
