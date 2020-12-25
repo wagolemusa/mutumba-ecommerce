@@ -365,6 +365,8 @@ class Mpesa(LoginRequiredMixin, View):
 # @method_decorator(login_required, name='dispatch')
 @csrf_exempt
 def callbackurl(request):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
 	"""
 	It recieves the response from safaricam
 	"""
