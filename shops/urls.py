@@ -19,7 +19,7 @@ from .views import (
 	AddCouponView,
 	RequestRefundView,
 	list_category,
-	callbackurl,
+	Callbackurl,
 	
 )
 
@@ -32,10 +32,10 @@ urlpatterns = [
 	path('contact', contact, name='contact'),
 	path('new/', Newproduct, name='new'),
 	path('services', services, name='services'),
-	path('callbackurl', callbackurl, name='callbackurl'),
 	path('create/', post_create, name='create'),
 	path('category/<slug>/', list_category, name='list_category'),
 	path('product/<slug>/', products, name='product'),
+	path('callbackurl/', Callbackurl.as_view(), name='callbackurl'),
 	path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
 	path('checkout/', CheckoutView.as_view(), name='checkout'),
 	path('add-to-cart/<slug>/', add_to_cart, name='add-to-cart'),

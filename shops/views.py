@@ -362,83 +362,85 @@ class Mpesa(LoginRequiredMixin, View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
-# @method_decorator(login_required, name='dispatch')
-@csrf_exempt
-def callbackurl(request):
-	"""
-	It recieves the response from safaricam
-	"""
-	json_da = json.loads(request.body)
-	print(json_da)
 
-	resultcode = json_da['Body']['stkCallback']['ResultCode']
-	resultdesc = json_da['Body']['stkCallback']['ResultDesc']
-	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
-	mpesa_reciept = "MPESA"
+@method_decorator(login_required, name='dispatch')
+class Callbackurl(LoginRequiredMixin, View):
+	@csrf_exempt
+	def get(self, *args, **kwargs):
+
+		"""
+		It recieves the response from safaricam
+		"""
+		json_da = json.loads(request.body)
+		print(json_da)
+
+		resultcode = json_da['Body']['stkCallback']['ResultCode']
+		resultdesc = json_da['Body']['stkCallback']['ResultDesc']
+		# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
+		mpesa_reciept = "MPESA"
+			
+		# print(mpesa_reciept)
+		def pay():
+			if resultcode == 0:
+				return "Paid"
+			elif resultcode == 1:
+				return "Faild"
+			else:
+				return "canceled"
+		status = pay()
+		print(status)
+
+		callback = Mpesapay.objects.filter(cash='notpayed')
+		callback.update(cash=status)
 		
-	# print(mpesa_reciept)
-	def pay():
-		if resultcode == 0:
-			return "Paid"
-		elif resultcode == 1:
-			return "Faild"
+		if status == 'Paid':
+
+			# @login_required
+			# def get(self, *args, **kwargs):
+			# order = Order.objects.filter(user = request.user, ordered='False')
+			# print(order)
+
+			order = Order.objects.get(user = request.user, ordered=False)
+			order.update(ordered=True)
+			for item in order:
+				item.save()
+
+				# order.ordered = True
+				# # order.payment = payment
+				# order.save()
+			phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
+			for call in phonecal:
+				num = call['phone']
+				phone = str(num)
+				print(phone)
+				# Sends sms to mobile phone
+				message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
+				username = "refuge"    # use 'sandbox' for development in the test environment
+				api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
+				africastalking.initialize(username, api_key)
+
+				# Initialize a service e.g. SMS
+				sms = africastalking.SMS
+				# Use the service synchronously
+				response = sms.send(message, ['+' + phone ])
+				return redirect("/") 
+
 		else:
-			return "canceled"
-	status = pay()
-	print(status)
+			phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
+			for call in phonecal:
+				num = call['phone']
+				phone = str(num)
+				print(phone)
+				# Sends sms to mobile phone
+				message = "Your payments for shopping with mainaboutique is %s. Please Try again https://mainaboutique.co.ke"%(status)
+				username = "refuge"    # use 'sandbox' for development in the test environment
+				api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
+				africastalking.initialize(username, api_key)
 
-	callback = Mpesapay.objects.filter(cash='notpayed')
-	callback.update(cash=status)
-	
-	if status == 'Paid':
-
-		# @login_required
-		# def get(self, *args, **kwargs):
-		# order = Order.objects.filter(user = request.user, ordered='False')
-		# print(order)
-		if not request.user.is_staff or not request.user.is_superuser:
-			raise Http404
-		order = Order.objects.get(user = request.user, ordered=False)
-		order.update(ordered=True)
-		for item in order:
-			item.save()
-
-			# order.ordered = True
-			# # order.payment = payment
-			# order.save()
-		phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
-		for call in phonecal:
-			num = call['phone']
-			phone = str(num)
-			print(phone)
-			# Sends sms to mobile phone
-			message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
-			username = "refuge"    # use 'sandbox' for development in the test environment
-			api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
-			africastalking.initialize(username, api_key)
-
-			# Initialize a service e.g. SMS
-			sms = africastalking.SMS
-			# Use the service synchronously
-			response = sms.send(message, ['+' + phone ])
-			return redirect("/") 
-
-	else:
-		phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
-		for call in phonecal:
-			num = call['phone']
-			phone = str(num)
-			print(phone)
-			# Sends sms to mobile phone
-			message = "Your payments for shopping with mainaboutique is %s. Please Try again https://mainaboutique.co.ke"%(status)
-			username = "refuge"    # use 'sandbox' for development in the test environment
-			api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
-			africastalking.initialize(username, api_key)
-
-			# Initialize a service e.g. SMS
-			sms = africastalking.SMS
-			# Use the service synchronously
-			response = sms.send(message, ['+' + phone ])
+				# Initialize a service e.g. SMS
+				sms = africastalking.SMS
+				# Use the service synchronously
+				response = sms.send(message, ['+' + phone ])
 	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
