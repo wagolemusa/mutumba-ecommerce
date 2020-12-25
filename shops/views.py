@@ -393,10 +393,10 @@ def callbackurl(request):
 
 		# @login_required
 		# def get(self, *args, **kwargs):
-		order = Order.objects.filter(ordered=False)
-		print(order)
+		order = Order.objects.filter(ordered='False')
+		# print(order)
 		order.update(ordered=True)
-		order.save()
+		# order.save()
 			# for item in order:
 			# 	item.save()
 
