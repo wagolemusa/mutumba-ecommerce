@@ -19,7 +19,7 @@ from .views import (
 	AddCouponView,
 	RequestRefundView,
 	list_category,
-	callbackurl,
+	Callbackurl,
 	
 )
 
