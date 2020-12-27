@@ -367,7 +367,7 @@ class Mpesa(LoginRequiredMixin, View):
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
-	# current_user = self.request.user
+	user = request.user
 	# 	print(current_user.username)
 	# return HttpResponse("Welcome to poll's index!")
 	"""
@@ -398,18 +398,17 @@ def callbackurl(request):
 	if status == 'Paid':
 
 		# @login_required
-		def get(self, *args, **kwargs):
+		# def get(self, *args, **kwargs):
 		# order = Order.objects.filter(user = request.user, ordered='False')
 		# print(order)
-			order = Order.objects.get(user = self.request.user, ordered=False)
-			order.update(ordered=True)
-			for item in order:
-				item.save()
+		order = Order.objects.get(user = request.user, ordered=False)
+		order.update(ordered=True)
+		for item in order:
+			item.save()
+
 			# order.ordered = True
 			# # order.payment = payment
 			# order.save()
-		return HttpResponse("Welcome to poll's index!")
-
 		phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
 		for call in phonecal:
 			num = call['phone']
