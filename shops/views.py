@@ -357,7 +357,7 @@ class Mpesa(LoginRequiredMixin, View):
 				print (response.text)
 
 				callbackurl(self)
-				json_da = json.loads(requests.body)
+				json_da = json.loads(request.body)
 				print(json_da)
 
 				resultcode = json_da['Body']['stkCallback']['ResultCode']
