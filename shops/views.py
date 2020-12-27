@@ -356,7 +356,7 @@ class Mpesa(LoginRequiredMixin, View):
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
 
-				callbackurl(self)
+				callbackurl(self, request)
 				json_da = json.loads(request.body)
 				print(json_da)
 
