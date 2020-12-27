@@ -358,7 +358,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 				json_da = "https://mainaboutique.herokuapp.com/callbackurl"
 
-				json_da = json.loads(request.body)
+				# json_da = json.loads(request.body)
 				print(json_da)
 
 				resultcode = json_da['Body']['stkCallback']['ResultCode']
