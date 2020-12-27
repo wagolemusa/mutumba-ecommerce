@@ -363,8 +363,9 @@ class Mpesa(LoginRequiredMixin, View):
 			return redirect("shops:order-summary")
 
 
-@method_decorator(login_required, name='dispatch')
+# @method_decorator(login_required, name='dispatch')
 class Callbackurl(LoginRequiredMixin, View):
+	@csrf_exempt
 	def get(self, *args, **kwargs):
 		# def callbackurl(self, request, *args, **kwargs):
 		current_user = self.request.user
