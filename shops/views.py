@@ -355,6 +355,58 @@ class Mpesa(LoginRequiredMixin, View):
 				url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest" #C2B URL
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
+				
+				callbackurl()
+				callback = Mpesapay.objects.filter(cash='notpayed')
+				callback.update(cash=status)
+					
+				if status == 'Paid':
+
+					# @login_required
+					# def get(self, *args, **kwargs):
+					# order = Order.objects.filter(user = request.user, ordered='False')
+					# print(order)
+					order = Order.objects.get(user = request.user, ordered=False)
+					order.update(ordered=True)
+					for item in order:
+						item.save()
+
+						# order.ordered = True
+						# # order.payment = payment
+						# order.save()
+					phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
+					for call in phonecal:
+						num = call['phone']
+						phone = str(num)
+						print(phone)
+						# Sends sms to mobile phone
+						message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
+						username = "refuge"    # use 'sandbox' for development in the test environment
+						api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
+						africastalking.initialize(username, api_key)
+						# Initialize a service e.g. SMS
+						sms = africastalking.SMS
+						# Use the service synchronously
+						response = sms.send(message, ['+' + phone ])
+					return HttpResponse("Welcome to poll's index!")
+
+				else:
+					phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
+					for call in phonecal:
+						num = call['phone']
+						phone = str(num)
+						print(phone)
+						# Sends sms to mobile phone
+						message = "Your payments for shopping with mainaboutique is %s. Please Try again https://mainaboutique.co.ke"%(status)
+						username = "refuge"    # use 'sandbox' for development in the test environment
+						api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
+						africastalking.initialize(username, api_key)
+						# Initialize a service e.g. SMS
+						sms = africastalking.SMS
+						# Use the service synchronously
+						response = sms.send(message, ['+' + phone ])
+					return HttpResponse("Welcome to poll's index!")
+
 				# return {"message": 'Wait Response on Your phone'}
 				messages.success(self.request, "Wait Response on Your phone")
 				return redirect("/")
@@ -362,7 +414,7 @@ class Mpesa(LoginRequiredMixin, View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
-@login_required
+
 @csrf_exempt
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
@@ -392,55 +444,7 @@ def callbackurl(request):
 	status = pay()
 	print(status)
 
-	callback = Mpesapay.objects.filter(cash='notpayed')
-	callback.update(cash=status)
-		
-	if status == 'Paid':
 
-		# @login_required
-		# def get(self, *args, **kwargs):
-		# order = Order.objects.filter(user = request.user, ordered='False')
-		# print(order)
-		order = Order.objects.get(user = request.user, ordered=False)
-		order.update(ordered=True)
-		for item in order:
-			item.save()
-
-			# order.ordered = True
-			# # order.payment = payment
-			# order.save()
-		phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
-		for call in phonecal:
-			num = call['phone']
-			phone = str(num)
-			print(phone)
-			# Sends sms to mobile phone
-			message = "Thanks for shopping with Us, We'll deliver your product as soon as possible"
-			username = "refuge"    # use 'sandbox' for development in the test environment
-			api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
-			africastalking.initialize(username, api_key)
-			# Initialize a service e.g. SMS
-			sms = africastalking.SMS
-			# Use the service synchronously
-			response = sms.send(message, ['+' + phone ])
-		return HttpResponse("Welcome to poll's index!")
-
-	else:
-		phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
-		for call in phonecal:
-			num = call['phone']
-			phone = str(num)
-			print(phone)
-			# Sends sms to mobile phone
-			message = "Your payments for shopping with mainaboutique is %s. Please Try again https://mainaboutique.co.ke"%(status)
-			username = "refuge"    # use 'sandbox' for development in the test environment
-			api_key = "0baff8f7f0e3e0ca915aabe81477a7d444bd52c98afd11ff9b39079337db3901"      # use your sandbox app API key for development in the test environment
-			africastalking.initialize(username, api_key)
-			# Initialize a service e.g. SMS
-			sms = africastalking.SMS
-			# Use the service synchronously
-			response = sms.send(message, ['+' + phone ])
-		return HttpResponse("Welcome to poll's index!")
 	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
