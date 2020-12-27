@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 # @login_required
 @csrf_exempt
-def callbackurl(self, request):
+def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
 	user = request.user
@@ -392,7 +392,7 @@ def callbackurl(self, request):
 	status = pay()
 	print(status)
 
-	callback = Mpesapay.objects.filter(cash='notpayed')
+	callback = Mpesapay.objects.filter(user = self.request.user, cash='notpayed')
 	callback.update(cash=status)
 		
 	if status == 'Paid':
