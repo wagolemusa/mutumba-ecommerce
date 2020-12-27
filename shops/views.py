@@ -423,7 +423,7 @@ def callbackurl(request):
 				sms = africastalking.SMS
 				# Use the service synchronously
 				response = sms.send(message, ['+' + phone ])
-			return HttpResponse("Welcome to poll's index!")
+				return HttpResponse("Welcome to poll's index!")
 
 		else:
 			phonecal =  phonecal = Mpesapay.objects.filter(phone__startswith='254').order_by('-timestamp')[:1].values()
@@ -441,6 +441,7 @@ def callbackurl(request):
 				sms = africastalking.SMS
 				# Use the service synchronously
 				response = sms.send(message, ['+' + phone ])
+			return HttpResponse("Welcome to poll's index!")
 	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
