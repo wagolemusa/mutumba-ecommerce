@@ -356,9 +356,8 @@ class Mpesa(LoginRequiredMixin, View):
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
 
-				callbackurl(self)
-
-				json_da = json.loads(self.request.body)
+				callbackurl(request)
+				json_da = json.loads(request.body)
 				print(json_da)
 
 				resultcode = json_da['Body']['stkCallback']['ResultCode']
@@ -436,7 +435,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 
 @csrf_exempt
-def callbackurl(request):
+def callbackurl():
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
 	# current_user = request.user
