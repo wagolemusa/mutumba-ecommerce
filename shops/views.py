@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 # @login_required
 @csrf_exempt
-def callbackurl(request):
+def callbackurl(self, request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
 	user = request.user
@@ -401,7 +401,7 @@ def callbackurl(request):
 		# def get(self, *args, **kwargs):
 		# order = Order.objects.filter(user = request.user, ordered='False')
 		# print(order)
-		order = Order.objects.get(user = request.user, ordered=False)
+		order = Order.objects.get(user = self.request.user, ordered=False)
 		order.update(ordered=True)
 		for item in order:
 			item.save()
