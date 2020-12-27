@@ -355,8 +355,8 @@ class Mpesa(LoginRequiredMixin, View):
 				url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest" #C2B URL
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
-				
-				callbackurl()
+
+				callbackurl(self)
 				callback = Mpesapay.objects.filter(cash='notpayed')
 				callback.update(cash=status)
 					
