@@ -356,7 +356,16 @@ class Mpesa(LoginRequiredMixin, View):
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
 
-				callbackurl(self)			
+				json_da = "https://mainaboutique.herokuapp.com/callbackurl"
+
+				json_da = json(body)
+				print(json_da)
+
+				resultcode = json_da['Body']['stkCallback']['ResultCode']
+				resultdesc = json_da['Body']['stkCallback']['ResultDesc']
+				# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
+				mpesa_reciept = "MPESA"
+						
 				# print(mpesa_reciept)
 				def pay():
 					if resultcode == 0:
@@ -432,19 +441,10 @@ def callbackurl(request):
 	# 	# def callbackurl(self, request, *args, **kwargs):
 	# current_user = request.user
 	# 	print(current_user.username)
-	# return HttpResponse("Welcome to poll's index!")
+	return HttpResponse("Welcome to poll's index!")
 	"""
 	It recieves the response from safaricam
-
 	"""
-	json_da = json.loads(request.body)
-	print(json_da)
-	resultcode = json_da['Body']['stkCallback']['ResultCode']
-	resultdesc = json_da['Body']['stkCallback']['ResultDesc']
-	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
-	mpesa_reciept = "MPESA"
-	return HttpResponse("Welcome to poll's index!")
-
 
 	
 class PaymentViews(View):
