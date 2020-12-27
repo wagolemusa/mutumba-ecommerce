@@ -365,11 +365,11 @@ class Mpesa(LoginRequiredMixin, View):
 
 @csrf_exempt
 def callbackurl(request):
-	def get(self, *args, **kwargs):
-		# def callbackurl(self, request, *args, **kwargs):
-		current_user = self.request.user
-		print(current_user.username)
-	return HttpResponse("Welcome to poll's index!")
+	# def get(self, *args, **kwargs):
+	# 	# def callbackurl(self, request, *args, **kwargs):
+	# 	current_user = self.request.user
+	# 	print(current_user.username)
+	# return HttpResponse("Welcome to poll's index!")
 	"""
 	It recieves the response from safaricam
 	"""
