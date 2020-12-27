@@ -419,7 +419,7 @@ class Mpesa(LoginRequiredMixin, View):
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
-	current_user = request.user
+	# current_user = request.user
 	# 	print(current_user.username)
 	# return HttpResponse("Welcome to poll's index!")
 	"""
@@ -443,6 +443,7 @@ def callbackurl(request):
 			return "canceled"
 	status = pay()
 	print(status)
+	return HttpResponse("Welcome to poll's index!")
 
 
 	
