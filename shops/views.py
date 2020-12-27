@@ -356,7 +356,27 @@ class Mpesa(LoginRequiredMixin, View):
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
 
-				callbackurl(self)
+				callbackurl(request)
+
+				json_da = json.loads(request.body)
+				print(json_da)
+
+				resultcode = json_da['Body']['stkCallback']['ResultCode']
+				resultdesc = json_da['Body']['stkCallback']['ResultDesc']
+				# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
+				mpesa_reciept = "MPESA"
+						
+				# print(mpesa_reciept)
+				def pay():
+					if resultcode == 0:
+						return "Paid"
+					elif resultcode == 1:
+						return "Faild"
+					else:
+						return "canceled"
+				status = pay()
+				print(status)
+
 				callback = Mpesapay.objects.filter(cash='notpayed')
 				callback.update(cash=status)
 					
@@ -425,24 +445,6 @@ def callbackurl(request):
 	"""
 	It recieves the response from safaricam
 	"""
-	json_da = json.loads(request.body)
-	print(json_da)
-
-	resultcode = json_da['Body']['stkCallback']['ResultCode']
-	resultdesc = json_da['Body']['stkCallback']['ResultDesc']
-	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
-	mpesa_reciept = "MPESA"
-			
-	# print(mpesa_reciept)
-	def pay():
-		if resultcode == 0:
-			return "Paid"
-		elif resultcode == 1:
-			return "Faild"
-		else:
-			return "canceled"
-	status = pay()
-	print(status)
 	return HttpResponse("Welcome to poll's index!")
 
 
