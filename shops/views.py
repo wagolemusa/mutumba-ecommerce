@@ -435,7 +435,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 
 @csrf_exempt
-def callbackurl():
+def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
 	# current_user = request.user
