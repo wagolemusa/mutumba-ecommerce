@@ -367,7 +367,7 @@ class Mpesa(LoginRequiredMixin, View):
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
-	# current_user = request.user
+	user = request.user
 	# 	print(current_user.username)
 	# return HttpResponse("Welcome to poll's index!")
 	"""
@@ -392,7 +392,7 @@ def callbackurl(request):
 	status = pay()
 	print(status)
 
-	callback = Mpesapay.objects.get(user = user_id, cash='notpayed')
+	callback = Mpesapay.objects.get(user.user_id, cash='notpayed')
 	callback.update(cash=status)
 		
 	if status == 'Paid':
@@ -401,7 +401,7 @@ def callbackurl(request):
 		# def get(self, *args, **kwargs):
 		# order = Order.objects.filter(user = request.user, ordered='False')
 		# print(order)
-		order = Order.objects.get(user = user_id, ordered=False)
+		order = Order.objects.get(user.user_id, ordered=False)
 		order.update(ordered=True)
 		for item in order:
 			item.save()
