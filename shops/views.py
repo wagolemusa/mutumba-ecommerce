@@ -401,7 +401,7 @@ def callbackurl(request):
 		# def get(self, *args, **kwargs):
 		# order = Order.objects.filter(user = request.user, ordered='False')
 		# print(order)
-		order = Order.objects.get(ordered=False)
+		order = Order.objects.filter(ordered=False)
 		order.update(ordered=True)
 		for item in order:
 			item.save()
