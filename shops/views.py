@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, Http404
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator 
 from django.db.models import Q
@@ -366,10 +367,7 @@ class Mpesa(LoginRequiredMixin, View):
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
-	# from django.contrib.auth.models import AnonymousUser
-	# user = AnonymousUser()
-	# user = request.user.is_authenticated
-	# print(user)
+	# current_user = request.user
 	# 	print(current_user.username)
 	# return HttpResponse("Welcome to poll's index!")
 	"""
@@ -394,7 +392,7 @@ def callbackurl(request):
 	status = pay()
 	print(status)
 
-	callback = Mpesapay.objects.filter(cash='notpayed')
+	callback = Mpesapay.objects.filter(current_user, cash='notpayed')
 	callback.update(cash=status)
 		
 	if status == 'Paid':
