@@ -367,7 +367,9 @@ class Mpesa(LoginRequiredMixin, View):
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
-	user = request.user
+	from django.contrib.auth.models import AnonymousUser
+	user = AnonymousUser()
+	# user = request.user
 	# 	print(current_user.username)
 	# return HttpResponse("Welcome to poll's index!")
 	"""
