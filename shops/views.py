@@ -363,7 +363,7 @@ class Mpesa(LoginRequiredMixin, View):
 
 # @login_required
 @csrf_exempt
-def callbackurl(login_required, request):
+def callbackurl(request,login_required):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
 	# from django.contrib.auth.models import AnonymousUser
