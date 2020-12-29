@@ -362,14 +362,14 @@ class Mpesa(LoginRequiredMixin, View):
 			messages.error(self.request, "You do not have an active order")
 			return redirect("shops:order-summary")
 
-# @login_required
+@login_required
 @csrf_exempt
 def callbackurl(request):
 	# def get(self, *args, **kwargs):
 	# 	# def callbackurl(self, request, *args, **kwargs):
-	from django.contrib.auth.models import AnonymousUser
-	user = AnonymousUser()
-	# user = request.user
+	# from django.contrib.auth.models import AnonymousUser
+	# user = AnonymousUser()
+	user = request.user
 	print(user)
 	# 	print(current_user.username)
 	# return HttpResponse("Welcome to poll's index!")
