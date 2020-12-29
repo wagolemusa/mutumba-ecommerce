@@ -79,9 +79,10 @@ def create_ref_code():
 	return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 
 def products(request, slug):
-	instance = get_object_or_404(Item, slug=slug)
+	
 	querySet_list = Item.objects.all()
 	# def get_queryset(self):
+	instance = get_object_or_404(Item, slug=slug)
 	# show = get_object_or_404(Item, category = slug)
 	category = get_object_or_404(Category, slug=slug)
 	# category = Category.objects.get(pk=pk)
@@ -93,8 +94,8 @@ def products(request, slug):
 		'items': Item.objects.all(),
 		# "title": instance.title,
 		# "item": item,
-		"instance":instance,
-		"category": category,
+		# "instance":instance,
+		# "category": category,
 		"querySet_list": querySet_list,
 		"show": show,
 	}
