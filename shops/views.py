@@ -94,7 +94,7 @@ def products(request, slug):
 		'items': Item.objects.all(),
 		# "title": instance.title,
 		# "item": item,
-		# "instance":instance,
+		"instance":instance,
 		# "category": category,
 		"querySet_list": querySet_list,
 		"show": show,
