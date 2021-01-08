@@ -36,6 +36,11 @@ LABEL_CHOICES = (
 	('D', 'danger')
 )
 
+ADDRESS_CHOICES = (
+	('B', 'Billing'),
+	('S', 'Shipping')
+)
+
 class Item(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE,
                     related_name="category_set")
