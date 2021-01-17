@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<main>
+	<div class="category">
+	<h1 class="text-center">
+		<h2>Orders Summary</h2>
+	</h1>
+	<br><br>
+		<div class="container">
+			<div class="table-responsive text-nawrap">
+			<table class="table">
+					<thead>
+						<tr>
+						<th scope="col">#</th>
+						<th scope="col">Item title</th>
+						<th scope="col">Price</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Total Item Price</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					{% for order_item in getone %}
+					<tr>
+						<th scope="row">{{ forloop.counter }}</th>
+						<td>{{ order_item.item+-------------------- }}</td>
+						<td>{{ order_item.price }}</td>
+						<td>{{ order_item.quantity }}</td>
+						</tr>
+
+
+					</tbody>
+					
+				</table>
+			</div>
+		{% endfor %}
+		</div>
+	</main>
+{% endblock content %}

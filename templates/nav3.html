@@ -1,6 +1,6 @@
 {% load cart_template_tags %}
 
-      <nav class="navbar navbar-expand-lg custom-navbar navbar-light fixed-top" id="main_navbar">
+      <nav class="navbar navbar-expand-lg custom-navbar navbar-dark  fixed-top" id="main_navbar" >
         <a class="navbar-brand logo" href="#">
         <img src="../static/cf.png" alt="logo" style="width:70px; height: 60px;">
           <!-- <img src="#" alt="logo" style="width:130px;"> -->
@@ -22,6 +22,25 @@
                         New Products
                       </a>
                     </li>
+
+
+              <li>
+            <!-- Our Special dropdown has class show-on-hover -->
+                <div class="btn-group show-on-hover">
+                    <a href="#" style="padding-top: 9px;
+                    color: #fff; font-size: 18px; font-weight: bold;"> Category</a> 
+                  <ul class="dropdown-menu" role="menu">
+
+                  {% for item in cat_list %}
+                  <li>
+                    <a href="{{ item.get_category_absolete_url }}">{{ item }}</a>
+                  </li>
+                   {% endfor %}
+                  </ul>
+
+          
+        </div>
+        </li>
                     <li class="nav-item">
                       <a class="nav-link" href='{% url "shops:contact" %}' style="color: #fff; font-size: 18px; font-weight: bold;">
                         <i class="fa fa-volume-control-phone">
