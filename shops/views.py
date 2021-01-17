@@ -78,16 +78,16 @@ def post_create(request):
 def create_ref_code():
 	return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 
-def products(request, slug):
+def products(request, id=None):
 	
 	querySet_list = Item.objects.all()
 	# def get_queryset(self):
-	instance = get_object_or_404(Item, slug=slug)
+	instance = get_object_or_404(Item, id=id)
 	# show = get_object_or_404(Item, category = slug)
-	category = get_object_or_404(Category, slug=slug)
+	category = get_object_or_404(Category, id=id)
 	# category = Category.objects.get(pk=pk)
-	show = Item.objects.filter(category=category)
-	# show = Item.filter(category=category)
+					
+	cat_list = Category.objects.all()
 	# Model.objects.get(field_name=some_param)
 
 	context = {
@@ -95,28 +95,44 @@ def products(request, slug):
 		# "title": instance.title,
 		# "item": item,
 		"instance":instance,
-		# "category": category,
+		"category": category,
 		"querySet_list": querySet_list,
-		"show": show,
+		"cat_list": cat_list,
 	}
 	return render(request, "product.html", context)
 
-def list_category(request, slug):
+def list_category(request, id=None):
 	categories = Category.objects.all()
-	if slug:
-		category = get_object_or_404(Category, slug=slug)
+	cat_list = Category.objects.all()
+	if id:
+		category = get_object_or_404(Category, id=id)
 		item = Item.objects.filter(category=category)
 		
 	context = {
 		'categories': categories,
 		'category': category,
 		'item':item,
+		'cat_list':cat_list
 	}
 	return render(request, "category.html", context)
 
+# get user orders
+# @method_decorator(login_required, name='dispatch')
+# class OrderViews(LoginRequiredMixin, View):
+@login_required
+def getOrder(request):
+	# current_user = request.user
+	# print (current_user.id)
+	order = OrderItem.objects.filter(user=request.user, ordered=False)
+
+	context = {
+		'getone':order
+	}
+	return render(request, "orders.html", context)
 
 class CheckoutView(View):
 	def get(self, *args, **kwargs):
+		cat_list = Category.objects.all()
 		try:
 			order = Order.objects.get(user=self.request.user, ordered=False)
 			form = CheckoutForm()
@@ -124,7 +140,8 @@ class CheckoutView(View):
 				'form': form,
 				'couponform': CouponForm(),
 				'order': order,
-				'DISPLAY_COUPON_FORM':True
+				'DISPLAY_COUPON_FORM':True,
+				'cat_list':cat_list
 
 			}
 			return render(self.request, "checkout.html", context)
@@ -182,6 +199,7 @@ def about(request):
 	return render(request, "about.html")
 
 def contact(request):
+	cat_list = Category.objects.all()
 	form = CantactForms(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -189,6 +207,7 @@ def contact(request):
 		messages.success(request, "Successfully Created")
 	content = {
 		'form': form,
+		'cat_list':cat_list
 	}
 	return render(request, "contact.html", content)
 
@@ -202,7 +221,7 @@ def services(request):
 			Q(title__icontains=query) | 
 			Q(description__icontains=query)|
 			Q(price__icontains=query)|
-			Q(slug__icontains=query)
+			Q(id__icontains=query)
 			).distinct()
 	paginator = Paginator(object_list, 6)
 	page = request.GET.get('page')
@@ -218,13 +237,14 @@ def home(request):
 	today = timezone.now().date()
 
 	object_list = Item.objects.all().order_by("-timestamp")
+	cat_list = Category.objects.all()
 	query = request.GET.get("q")
 	if query:
 		object_list = object_list.filter(
 			Q(title__icontains=query) | 
 			Q(description__icontains=query)|
-			Q(price__icontains=query)|
-			Q(slug__icontains=query)
+			Q(price__icontains=query)
+			
 			).distinct()
 	paginator = Paginator(object_list, 6)
 	page = request.GET.get('page')
@@ -264,26 +284,29 @@ def home(request):
 		# # 'linkshoes':linkshoes,
 		# 'tops_cat_link':tops_cat_link,
 		# 'today':today
+		'cat_list':cat_list
 		}
 	return render(request, "home.html", context)
 
 # All New Products
 def Newproduct(request):
 	object_list = Item.objects.all().order_by("-timestamp")
+	cat_list = Category.objects.all()
 	query = request.GET.get("q")
 	if query:
 		object_list = object_list.filter(
 			Q(title__icontains=query) | 
 			Q(description__icontains=query)|
-			Q(price__icontains=query)|
-			Q(slug__icontains=query)
+			Q(price__icontains=query)
+			
 			).distinct()
 	paginator = Paginator(object_list, 12)
 	page = request.GET.get('page')
 	querySet = paginator.get_page(page)
 
 	context = {
-		'newproduct': querySet
+		'newproduct': querySet,
+		'cat_list': cat_list
 	}
 	return render(request, "new.html", context)
 
@@ -445,11 +468,13 @@ def callbackurl(request):
 	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):
+		cat_list = Category.objects.all()
 		order = Order.objects.get(user=request.user, ordered=False)
 		if order.billing_address:
 			context = {
 				'order': order,
-				'DISPLAY_COUPON_FORM':False
+				'DISPLAY_COUPON_FORM':False,
+				'cat_list':cat_list
 			}
 			return render(self.request, "payment.html", context)
 		else:
@@ -533,10 +558,12 @@ class PaymentViews(View):
 # @login_required
 class OrderSummaryView(LoginRequiredMixin, View):
 	def get(self, *args, **kwargs):
+		cat_list = Category.objects.all()
 		try:
 			order = Order.objects.get(user=self.request.user, ordered=False)
 			context = {
-				'object': order
+				'object': order,
+				'cat_list':cat_list
 			}
 			return render(self.request, 'order_summary.html', context)
 		except ObjectDoesNotExist:
@@ -549,8 +576,8 @@ class ItemDetailView(DetailView):
 
 
 @login_required
-def add_to_cart(request, slug):
-	item = get_object_or_404(Item, slug=slug)
+def add_to_cart(request, id=None):
+	item = get_object_or_404(Item, id=id)
 	order_item, created = OrderItem.objects.get_or_create(
 		item=item,
 		user=request.user,
@@ -561,7 +588,7 @@ def add_to_cart(request, slug):
 		order = order_qs[0]
 
 		# check if the order item is in the order
-		if order.items.filter(item__slug=item.slug).exists():
+		if order.items.filter(item__id=item.id).exists():
 			order_item.quantity += 1 
 			order_item.save()
 			messages.info(request, "This item quantity was updated")
@@ -580,8 +607,8 @@ def add_to_cart(request, slug):
 
 
 @login_required
-def remove_from_cart(request, slug):
-	item = get_object_or_404(Item, slug=slug)
+def remove_from_cart(request, id=None):
+	item = get_object_or_404(Item, id=id)
 	# Check if user has orders
 	order_qs = Order.objects.filter(
 		user=request.user,
@@ -590,7 +617,7 @@ def remove_from_cart(request, slug):
 	if order_qs.exists():
 		order = order_qs[0]
 
-		if order.items.filter(item__slug=item.slug).exists():
+		if order.items.filter(item__id=item.id).exists():
 			order_item = OrderItem.objects.filter(
 				item=item,
 				user=request.user,
@@ -601,16 +628,16 @@ def remove_from_cart(request, slug):
 			return redirect("shops:order-summary")
 		else:
 			messages.info(request, "This was not in Cart")
-			return redirect("shops:product", slug=slug)			
+			return redirect("shops:product", id=id)			
 	else:
 		messages.info(request, "You do not have an active order")
-		return redirect("shops:product", slug=slug)
+		return redirect("shops:product", id=id)
 
 
 @login_required
-def remove_single_item_from_cart(request, slug):
+def remove_single_item_from_cart(request, id=None):
 	# Check if the order exists
-	item = get_object_or_404(Item, slug=slug)
+	item = get_object_or_404(Item, id=id)
 	# Check if user has orders
 	order_qs = Order.objects.filter(
 		user=request.user,
@@ -619,7 +646,7 @@ def remove_single_item_from_cart(request, slug):
 	if order_qs.exists():
 		order = order_qs[0]
 
-		if order.items.filter(item__slug=item.slug).exists():
+		if order.items.filter(item__id=item.id).exists():
 			order_item = OrderItem.objects.filter(
 				item=item,
 				user=request.user,
@@ -634,10 +661,10 @@ def remove_single_item_from_cart(request, slug):
 			return redirect("shops:order-summary")
 		else:
 			messages.info(request, "This was not in Cart")
-			return redirect("shops:product", slug=slug)			
+			return redirect("shops:product", id=id)			
 	else:
 		messages.info(request, "You do not have an active order")
-		return redirect("shops:product", slug=slug)
+		return redirect("shops:product", id=id)
 
 
 def get_coupon(request, code):
@@ -647,9 +674,7 @@ def get_coupon(request, code):
 	except ObjectDoesNotExist:
 		messages.info(request, "This coupon does not exist")
 		return redirect("shops:checkout")
-
-
-
+		
 class AddCouponView(View):
 	def post(self, *args, **kwargs):
 		form = CouponForm(self.request.POST or None)

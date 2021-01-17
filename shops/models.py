@@ -10,7 +10,7 @@ from django_countries.fields import CountryField
 
 class Category(models.Model):
 	name = models.CharField(max_length=250)
-	slug = models.SlugField(max_length=250)
+	
 
 	class Meta:
 		ordering = ('name',)
@@ -18,7 +18,7 @@ class Category(models.Model):
 		verbose_name_plural = 'categories'
 
 	def get_category_absolete_url(self):
-		return reverse('shops:list_category', args=[self.slug])
+		return reverse('shops:list_category', args=[self.id])
 
 	def __str__(self):
 		return self.name
@@ -52,7 +52,6 @@ class Item(models.Model):
 	color = models.CharField(max_length=100)
 	type_cloth  = models.CharField(max_length=100)
 	label = models.CharField(choices=LABEL_CHOICES, max_length=1)
-	slug = models.SlugField() 
 	image = models.ImageField(
 					null=True, 
 					blank=True,
@@ -69,17 +68,17 @@ class Item(models.Model):
 
 	def get_absolete_url(self):
 		return reverse("shops:product", kwargs={
-				'slug': self.slug
+				'id': self.id
 			})
 
 	def get_add_to_cart_url(self):
 		return reverse("shops:add-to-cart", kwargs={
-			'slug': self.slug
+			'id': self.id
 			})
 
 	def get_remove_from_cart_url(self):
 		return reverse("shops:remove-from-cart", kwargs={
-			'slug':self.slug
+			'id':self.id
 			})
 
 class OrderItem(models.Model):
