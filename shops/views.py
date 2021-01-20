@@ -83,9 +83,9 @@ def products(request, id=None):
 	querySet_list = Item.objects.all()
 	# def get_queryset(self):
 	instance = get_object_or_404(Item, id=id)
-	# show = get_object_or_404(Item, category = slug)
-	category = get_object_or_404(Category, id=id)
-	# category = Category.objects.get(pk=pk)
+	# show = get_object_or_404(Item, category = id)
+	# category = get_object_or_404(Category, id=id)
+	# show = Category.objects.get(pk=id)
 					
 	cat_list = Category.objects.all()
 	# Model.objects.get(field_name=some_param)
@@ -95,9 +95,9 @@ def products(request, id=None):
 		# "title": instance.title,
 		# "item": item,
 		"instance":instance,
-		"category": category,
+		"cat_list": cat_list	,
 		"querySet_list": querySet_list,
-		"cat_list": cat_list,
+		
 	}
 	return render(request, "product.html", context)
 
