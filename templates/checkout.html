@@ -34,40 +34,7 @@
   {{ form.phone }}
   <label for="phone" class="">Phone Number</label>
   </div>
-  <div class="row">
 
-   <!--Grid column-->
-   <div class="col-lg-4 col-md-12 mb-4">
-      <label for="country">County</label>
-      <!--    <select class="custom-select d-block w-100" id="country" required>
-       <option value="">Choose...</option>
-       <option>United States</option>
-       </select> -->
-      {{ form.county }}
-
-    </div>
-    <!--Grid column-->
-    <!--Grid column-->
-    <div class="col-lg-4 col-md-6 mb-4">
-  <label for="zip">Zip</label>
-  <!-- <input type="text" class="form-control" id="zip" placeholder="" required> -->
-    {{ form.zip }}
-  <div class="invalid-feedback">
-    Zip code required.
-  </div>
-  </div>
-   <!--Grid column-->
-  </div>
-  <!--Grid row-->
-   <hr>
-  <div class="custom-control custom-checkbox">
-   <input {% if form.same_shipping_address.value %}checked{% endif %} type="checkbox" name="same_shipping_address" class="custom-control-input" id="same-address">
-   <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-  </div>
- <div class="custom-control custom-checkbox">
-  <input {% if form.save_info.value %}checked{% endif %} type="checkbox" name="save_info" class="custom-control-input" id="save-info">
- <label class="custom-control-label" for="save-info">Save this Information for next time</label>
-</div>
   <hr>
   <div class="d-block my-3">
   {% for value, name in form.fields.payment_option.choices %}

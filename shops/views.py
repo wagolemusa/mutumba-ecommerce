@@ -157,10 +157,8 @@ class CheckoutView(View):
 			if form.is_valid():
 				street_address = form.cleaned_data.get('street_address')
 				apartment_address = form.cleaned_data.get('apartment_address')
-				county = form.cleaned_data.get('county')
 				phone = form.cleaned_data.get('phone')
-				zip = form.cleaned_data.get('zip')
-
+				
 				# TODO: Functionality for these field
 				# same_shipping_address = form.cleaned_data.get(
 				# 	'same_shipping_address')
@@ -170,9 +168,7 @@ class CheckoutView(View):
 					user=self.request.user,
 					street_address=street_address,
 					apartment_address=apartment_address,
-					county=county,
-					phone=phone,
-					zip=zip
+					phone=phone
 				)
 				billing_address.save()
 				order.billing_address = billing_address
@@ -180,7 +176,7 @@ class CheckoutView(View):
 				# TODO: add redirect to the selected payment option
 
 				if payment_option == 'S':
-					return redirect('shops:payment', payment_option='mpesa')
+					return redirect('shops:mpesapay', payment_option='mpesa')
 				elif payment_option == 'M':
 					return redirect('shops:mpesapay', payment_option='mpesa')
 				else:

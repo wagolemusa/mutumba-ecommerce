@@ -5,7 +5,7 @@ from .models import Item, Images, Contact
 
 PAYMENT_CHOICES = (
 	('S', 'Stripe'),
-	('P', 'PayPal'),
+	# ('P', 'PayPal'),
 	('M', 'M-pesa')
 
 )
@@ -17,18 +17,13 @@ class CheckoutForm(forms.Form):
 	apartment_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
 		'class': 'form-control'
 		}))
-	county = forms.CharField(required=False, widget=forms.TextInput(attrs={
-		'class': 'form-control'
-		}))
+
 	phone = forms.CharField(required=False, widget=forms.NumberInput(attrs={
 		'class': 'form-control'
 		}))
-	zip = forms.CharField(widget=forms.TextInput(attrs={
-		'class': 'custom-select d-block w-100',
-		'id': 'zip'
-		}))
-	same_shipping_address = forms.BooleanField(required=False)
-	save_info = forms.BooleanField(required=False	)
+	
+	# same_shipping_address = forms.BooleanField(required=False)
+	# save_info = forms.BooleanField(required=False	)
 	payment_option = forms.ChoiceField(
 		widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
 
