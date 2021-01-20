@@ -87,6 +87,8 @@ class OrderItem(models.Model):
 	item = models.ForeignKey(Item, on_delete=models.CASCADE)
 	quantity = models.IntegerField(default=1)
 	ordered = models.BooleanField(default=False)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
 
 	def __str__(self):
 		return "%s %s" %(self.quantity, self.item.title)
@@ -158,9 +160,7 @@ class BillingAddress(models.Model):
 														on_delete=models.CASCADE)
 	street_address = models.CharField(max_length=100)
 	apartment_address = models.CharField(max_length=100)
-	county = models.CharField(max_length=100)
 	phone = models.BigIntegerField(blank=True, null=True)
-	zip = models.CharField(max_length=100)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 
@@ -202,6 +202,8 @@ class Refund(models.Model):
 	reason = models.TextField()
 	accepted = models.BooleanField(default=False)
 	email = models.EmailField(max_length=100)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
 
 	def __str__(self):
 		return "%s" %(self.pk)
