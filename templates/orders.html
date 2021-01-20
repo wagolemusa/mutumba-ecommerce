@@ -20,21 +20,21 @@
 						</tr>
 					</thead>
 					<tbody>
-
+					
 					{% for order_item in getone %}
 					<tr>
 						<th scope="row">{{ forloop.counter }}</th>
-						<td>{{ order_item.item+-------------------- }}</td>
+						<td>{{ order_item.item}}</td>
 						<td>{{ order_item.price }}</td>
 						<td>{{ order_item.quantity }}</td>
-						</tr>
+					</tr>
 
 
 					</tbody>
-					
+						{% endfor %}
 				</table>
 			</div>
-		{% endfor %}
+	
 		</div>
 	</main>
 {% endblock content %}
