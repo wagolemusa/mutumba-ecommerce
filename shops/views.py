@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL": "https://mainaboutique.herokuapp.com/callbackurl",
+				    "CallBackURL": "https://darajambili.herokuapp.com/express-payment",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
