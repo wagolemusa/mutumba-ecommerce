@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL": "https://darajambili.herokuapp.com/express-payment",
+				    "CallBackURL": "https://mainaboutique.herokuapp.com/callbackurl",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
@@ -399,11 +399,14 @@ def callbackurl(request):
 	# json_da = json.loads(request.body)
 	# print(json_da)
 
-	json_data = request.read()
-	data = json.loads(json_data)
+	json_da = json.dumps(request.body)
+	print(json_da)
 
-	resultcode = data['Body']['stkCallback']['ResultCode']
-	resultdesc = data['Body']['stkCallback']['ResultDesc']
+	# json_data = request.read()
+	# data = json.loads(json_data)
+
+	resultcode = json_da ['Body']['stkCallback']['ResultCode']
+	resultdesc = json_da ['Body']['stkCallback']['ResultDesc']
 	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
 	mpesa_reciept = "MPESA"
 			

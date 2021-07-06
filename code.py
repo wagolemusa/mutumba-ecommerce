@@ -1,7 +1,7 @@
 import json
 import requests
 import simplejson
-data_request = {    
+json_da = json.dumps = {    
    "Body": {        
       "stkCallback": {            
          "MerchantRequestID": "29115-34620561-1",            
@@ -29,18 +29,22 @@ data_request = {
       }    
    }
 }
-json_da = data_request.read()
-data = json.loads(json_data)
-# json_da = json.loads(data_request)
+# json_da = data_request.read()
+# data = json.loads(json_data)
+
+# json_da = json.dumps(data_request)
 # json_da = json.loads(request.body)
-print(data)
+
+print(json_da)
 
 resultcode = json_da['Body']['stkCallback']['ResultCode']
 resultdesc = json_da['Body']['stkCallback']['ResultDesc']
 # phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
 mpesa_reciept = "MPESA"
 
-print(resultcode)
+
+
+print("Your statu code is", resultcode)
 
 
 # import json
@@ -97,3 +101,10 @@ print(resultcode)
 # print (p)
 
 # print(phone)
+
+
+# import requests, time
+# r = requests.get('https://mainaboutique.herokuapp.com/callbackurl')
+
+# print (r.status_code)
+# print (r.content)
