@@ -117,7 +117,7 @@ class Order(models.Model):
 	ref_code = models.CharField(max_length=20)
 	items = models.ManyToManyField(OrderItem)
 	start_date = models.DateTimeField(auto_now_add=True)
-	ordered_date = models.DateTimeField()
+	ordered_date = models.DateTimeField(auto_now=False, auto_now_add=True)
 	ordered = models.BooleanField(default=False)
 	billing_address = models.ForeignKey(
 		'BillingAddress', on_delete=models.SET_NULL, blank=True, null=True)
@@ -183,7 +183,7 @@ class Mpesapay(models.Model):
 													on_delete=models.SET_NULL, blank=True, null=True)
 	amount = models.FloatField()
 	phone = models.BigIntegerField(blank=True, null=True)
-	timestamp = models.DateTimeField(auto_now_add=True)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 	cash = models.CharField(default='notpayed', max_length=15)
 
 	def __str__(self):

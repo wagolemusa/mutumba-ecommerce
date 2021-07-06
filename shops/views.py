@@ -14,7 +14,9 @@ from django.db.models import Q
 from django.forms import modelformset_factory
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-
+# import django.utils.simplejson as json
+# from django.utils import simplejson
+import simplejson
 # Create your views here.
 # from django.contrib.staticfiles
 from .forms import (
@@ -393,11 +395,15 @@ def callbackurl(request):
 	"""
 	It recieves the response from safaricam
 	"""
-	json_da = json.loads(request.body)
-	print(json_da)
 
-	resultcode = json_da['Body']['stkCallback']['ResultCode']
-	resultdesc = json_da['Body']['stkCallback']['ResultDesc']
+	# json_da = json.loads(request.body)
+	# print(json_da)
+
+	json_data = request.read()
+	data = json.loads(json_data)
+
+	resultcode = data['Body']['stkCallback']['ResultCode']
+	resultdesc = data['Body']['stkCallback']['ResultDesc']
 	# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
 	mpesa_reciept = "MPESA"
 			
@@ -460,7 +466,7 @@ def callbackurl(request):
 			sms = africastalking.SMS
 			# Use the service synchronously
 			response = sms.send(message, ['+' + phone ])
-		return HttpResponse("Welcome to poll's index!")
+		return HttpResponse("Welcome to mainaboute")
 	
 class PaymentViews(View):
 	def get(self, *args, **kwargs):

@@ -66,7 +66,8 @@ class OrderItemAdmin(admin.ModelAdmin):
 	list_display = [
 		 "user",
 		 "item",
-		 "quantity"
+		 "quantity",
+		 "timestamp"
 	]
 
 admin.site.register(Item)
