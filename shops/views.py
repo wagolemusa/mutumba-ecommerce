@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL": "https://mainaboutique.herokuapp.com/callbackurl",
+				    "CallBackURL":"https://mainaboutique.herokuapp.com/callbackurl",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
@@ -378,6 +378,10 @@ class Mpesa(LoginRequiredMixin, View):
 				response = requests.post(url, json=payload, headers=headers)
 				print (response.text)
 				# return {"message": 'Wait Response on Your phone'}
+
+				r = requests.post('https://mainaboutique.herokuapp.com/callbackurl')
+				print(r)
+				
 				messages.success(self.request, "Wait Response on Your phone")
 				return redirect("/")
 		except ObjectDoesNotExist:

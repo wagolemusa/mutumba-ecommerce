@@ -1,50 +1,48 @@
-import json
-import requests
-import simplejson
-json_da = json.dumps = {    
-   "Body": {        
-      "stkCallback": {            
-         "MerchantRequestID": "29115-34620561-1",            
-         "CheckoutRequestID": "ws_CO_191220191020363925",            
-         "ResultCode": 0,            
-         "ResultDesc": "The service request is processed successfully.",            
-         "CallbackMetadata": {                
-            "Item": [{                        
-               "Name": "Amount",                        
-               "Value": 1.00                    
-            },                    
-            {                        
-               "Name": "MpesaReceiptNumber",                        
-               "Value": "NLJ7RT61SV"                    
-            },                    
-            {                        
-               "Name": "TransactionDate",                        
-               "Value": 20191219102115                    
-            },                    
-            {                        
-               "Name": "PhoneNumber",                        
-               "Value": 254708374149                    
-            }]            
-         }        
-      }    
-   }
-}
-# json_da = data_request.read()
-# data = json.loads(json_data)
+# import json
+# import requests
+# import simplejson
+# json_da = json.dumps = {    
+#    "Body": {        
+#       "stkCallback": {            
+#          "MerchantRequestID": "29115-34620561-1",            
+#          "CheckoutRequestID": "ws_CO_191220191020363925",            
+#          "ResultCode": 0,            
+#          "ResultDesc": "The service request is processed successfully.",            
+#          "CallbackMetadata": {                
+#             "Item": [{                        
+#                "Name": "Amount",                        
+#                "Value": 1.00                    
+#             },                    
+#             {                        
+#                "Name": "MpesaReceiptNumber",                        
+#                "Value": "NLJ7RT61SV"                    
+#             },                    
+#             {                        
+#                "Name": "TransactionDate",                        
+#                "Value": 20191219102115                    
+#             },                    
+#             {                        
+#                "Name": "PhoneNumber",                        
+#                "Value": 254708374149                    
+#             }]            
+#          }        
+#       }    
+#    }
+# }
+# # json_da = data_request.read()
+# # data = json.loads(json_data)
 
-# json_da = json.dumps(data_request)
-# json_da = json.loads(request.body)
+# # json_da = json.dumps(data_request)
+# # json_da = json.loads(request.body)
 
-print(json_da)
+# print(json_da)
 
-resultcode = json_da['Body']['stkCallback']['ResultCode']
-resultdesc = json_da['Body']['stkCallback']['ResultDesc']
-# phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
-mpesa_reciept = "MPESA"
+# resultcode = json_da['Body']['stkCallback']['ResultCode']
+# resultdesc = json_da['Body']['stkCallback']['ResultDesc']
+# # phone = json_da["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"]
+# mpesa_reciept = "MPESA"
 
-
-
-print("Your statu code is", resultcode)
+# print("Your statu code is", resultcode)
 
 
 # import json
@@ -103,8 +101,8 @@ print("Your statu code is", resultcode)
 # print(phone)
 
 
-# import requests, time
-# r = requests.get('https://mainaboutique.herokuapp.com/callbackurl')
+import requests, time
+r = requests.post('https://mainaboutique.herokuapp.com/callbackurl')
 
-# print (r.status_code)
-# print (r.content)
+print (r.status_code)
+print (r.content)
