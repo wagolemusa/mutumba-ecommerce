@@ -379,8 +379,8 @@ class Mpesa(LoginRequiredMixin, View):
 				print (response.text)
 				# return {"message": 'Wait Response on Your phone'}
 				
-				r = requests.post('https://mainaboutique.herokuapp.com/callbackurl')
-				print (r.text)
+				# r = requests.post('https://mainaboutique.herokuapp.com/callbackurl')
+				# print (r.text)
 
 				messages.success(self.request, "Wait Response on Your phone")
 				return redirect("/")
