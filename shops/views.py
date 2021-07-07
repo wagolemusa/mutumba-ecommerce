@@ -403,7 +403,7 @@ def callbackurl(request):
 	# json_da = json.loads(request.body)
 	# print(json_da)
 
-	json_da = json.dumps(request)
+	json_da = json.dumps(request.body)
 	print(json_da)
 
 	# json_data = request.read()
