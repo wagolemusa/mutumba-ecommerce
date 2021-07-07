@@ -379,8 +379,8 @@ class Mpesa(LoginRequiredMixin, View):
 				print (response.text)
 				# return {"message": 'Wait Response on Your phone'}
 				
-				r = requests.get('https://darajambili.herokuapp.com/express-payment')
-				print (r)
+				r = requests.post('https://darajambili.herokuapp.com/express-payment')
+				print (r.content)
 
 				messages.success(self.request, "Wait Response on Your phone")
 				return redirect("/")
