@@ -364,7 +364,7 @@ class Mpesa(LoginRequiredMixin, View):
 				    "PartyA": phone,
 				    "PartyB": business_short_code,
 				    "PhoneNumber": phone,
-				    "CallBackURL":"https://mainaboutique.herokuapp.com/callbackurl",
+				    "CallBackURL":"https://darajambili.herokuapp.com/express-payment",
 				    "AccountReference": "account",
 				    "TransactionDesc": "account"
 				}
@@ -379,7 +379,7 @@ class Mpesa(LoginRequiredMixin, View):
 				print (response.text)
 				# return {"message": 'Wait Response on Your phone'}
 				
-				r = requests.get('https://mainaboutique.herokuapp.com/callbackurl')
+				r = requests.get('https://darajambili.herokuapp.com/express-payment')
 				print (r)
 
 				messages.success(self.request, "Wait Response on Your phone")
