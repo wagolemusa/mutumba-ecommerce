@@ -400,11 +400,11 @@ def callbackurl(request):
 	It recieves the response from safaricam
 	"""
 
-	# json_da = json.loads(request.body)
-	# print(json_da)
-
-	json_da = json.dumps(request.body)
+	json_da = json.loads(request.body)
 	print(json_da)
+
+	# json_da = json.dumps(request.body)
+	# print(json_da)
 
 	# json_data = request.read()
 	# data = json.loads(json_data)
